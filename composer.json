@@ -1,0 +1,41 @@
+{
+    "name": "transave/scola-cv-management",
+    "description": "Create, Search and Manage your portfolio and Curriculum Vitae with ease",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lubem Tser",
+            "email": "lubem@raadaa.com",
+            "homepage": "https://raadaa.com"
+        }
+    ],
+    "homepage": "https://github.com/transave/scola-cv-management",
+    "keywords": ["Laravel", "ScolaCvManagement"],
+    "require": {
+        "illuminate/support": "~9"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Transave\\ScolaCvManagement\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Transave\\ScolaCvManagement\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Transave\\ScolaCvManagement\\ScolaCvManagementServiceProvider"
+            ],
+            "aliases": {
+                "ScolaCvManagement": "Transave\\ScolaCvManagement\\Facades\\ScolaCvManagement"
+            }
+        }
+    }
+}
