@@ -10,7 +10,7 @@ class CreatePublication
     public function handle(Request $request){
 
         $validator = Validator::make($request->all(), [
-            'users_id' => ['max:255', 'exists:users,id'],
+            'user_id' => ['max:255', 'exists:users,id'],
             'publication' => ['string', 'max:255']
         ]);
 

@@ -24,7 +24,7 @@ class CreateDepartment
             return $this
                 ->validateRequest()
                 ->createDept()
-                ->buildResponse('created successfully', true, $this->user);
+                ->buildResponse('created successfully', true, $this->department);
         }catch (\Exception $exception){
             return $this->sendServerError($exception);
         }

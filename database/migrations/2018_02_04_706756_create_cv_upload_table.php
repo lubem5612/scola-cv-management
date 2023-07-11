@@ -10,7 +10,7 @@ class CreateCvUploadTable extends Migration
     {
         Schema::create('cv_upload', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id');
+            $table->foreignId('user_id');
             $table->string('cvName');
             $table->timestamps();
         });

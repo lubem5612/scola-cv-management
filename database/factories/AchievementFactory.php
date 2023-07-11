@@ -23,7 +23,7 @@ class AchievementFactory extends Factory
     public function definition()
     {
         return [
-            'users_id' => config('scolacv.auth_model')::factory(),
+            'user_id' => config('scolacv.auth_model')::factory(),
             'achievementName' => $this->faker->word,
             'dateAchieved' => $this->faker->dateTime,
             'description' => $this->faker->sentence,

@@ -15,7 +15,7 @@ class CreateSpecializationTable extends Migration
     {
         Schema::create('specialization', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->nullable();
+            $table->foreignId('user_id')->nullable();
             $table->string('name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();

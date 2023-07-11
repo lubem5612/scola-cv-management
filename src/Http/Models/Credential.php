@@ -19,7 +19,7 @@ class Credential extends Authenticatable
     protected $table = 'credentials';
 
     protected $fillable = [
-        'users_id',
+        'user_id',
         'fileName',
         'doctype',
         'id'

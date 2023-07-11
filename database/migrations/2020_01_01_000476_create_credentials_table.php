@@ -11,7 +11,7 @@ class CreateCredentialsTable extends  Migration
     {
         Schema::create('credentials', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id');
+            $table->foreignId('user_id');
             $table->string('docType')->index();
             $table->string('fileName', 700);
             $table->timestamps();

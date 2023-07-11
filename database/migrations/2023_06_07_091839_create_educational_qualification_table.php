@@ -15,7 +15,7 @@ class CreateEducationalQualificationTable extends Migration
     {
         Schema::create('educational_qualification', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id');
+            $table->foreignId('user_id');
             $table->string('institutionName');
             $table->foreignId('department_id');
             $table->string('courseStudy');
@@ -23,7 +23,6 @@ class CreateEducationalQualificationTable extends Migration
             $table->string('startDate');
             $table->string('endDate');
             $table->string('country');
-            $table->string('firstName');
             $table->timestamps();
 
         });

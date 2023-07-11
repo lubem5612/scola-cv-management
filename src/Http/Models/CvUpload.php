@@ -18,7 +18,7 @@ class CvUpload extends Authenticatable
 
     protected $guarded = [
         'id',
-        'users_id',
+        'user_id',
         'cvName'
     ];
 

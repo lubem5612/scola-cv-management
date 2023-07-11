@@ -16,7 +16,7 @@ class CredentialsFactory extends Factory
     {
         return [
         'fileName' => $this->faker->name,
-        'users_id' => config('scolacv.auth_model')::factory(),
+        'user_id' => config('scolacv.auth_model')::factory(),
         'doctype' => UploadedFile::fake()->image('profile.jpg')
         ];
     }

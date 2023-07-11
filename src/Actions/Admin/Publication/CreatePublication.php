@@ -33,7 +33,7 @@ class CreatePublication
 
     private function createUserPublication()
     {
-        $inputs = Arr::only($this->request, ['users_id', 'publication']);
+        $inputs = Arr::only($this->request, ['user_id', 'publication']);
         $this->publications = Publications::query()->create($inputs);
         if (empty($this->publications)) {
             return $this->buildResponse('failed in creating Publication', false, null);
@@ -44,7 +44,7 @@ class CreatePublication
     public function validateRequest(): self
     {
         $this->validate($this->request, [
-            'users_id' => ['max:255', 'exists:users,id'],
+            'user_id' => ['max:255', 'exists:users,id'],
             'publication' => ['string', 'max:255']
         ]);
 

@@ -12,7 +12,7 @@ class CreateAchievement
         $validator = Validator::make($request->all(), [
             'achievementName' => ['string', 'max:255'],
             'dateAchieved' => ['string', 'max:255'],
-            'users_id' => ['max:255', 'exists:users,id'],
+            'user_id' => ['max:255', 'exists:users,id'],
             'description' => ['string', 'max:255']
         ]);
 

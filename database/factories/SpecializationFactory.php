@@ -24,7 +24,7 @@ class SpecializationFactory extends Factory
     {
 
         return [
-            'users_id' => config('scolacv.auth_model')::factory(),
+            'user_id' => config('scolacv.auth_model')::factory(),
             'name' => $this->faker->sentence,
             'description' => $this->faker->sentence,
         ];

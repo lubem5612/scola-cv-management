@@ -24,7 +24,7 @@ class WorkExperienceFactory extends Factory
     {
 
         return [
-            'users_id' => config('scolacv.auth_model')::factory(),
+            'user_id' => config('scolacv.auth_model')::factory(),
             'responsibilities' => $this->faker->sentence,
             'companyName' => $this->faker->company,
             'startDate' => $this->faker->date(),

@@ -31,7 +31,7 @@ class CreateUserAchievement
 
     private function createAchievement()
     {
-        $inputs = Arr::only($this->request, ['achievementName', 'dateAchieved', 'users_id', 'description']);
+        $inputs = Arr::only($this->request, ['achievementName', 'dateAchieved', 'user_id', 'description']);
         $this->achievement = Achievements::query()->create($inputs);
         if (empty($this->achievement)) {
             return $this->buildResponse('failed in creating Achievement', false, null);

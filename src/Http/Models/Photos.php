@@ -16,6 +16,7 @@ class Photos extends Authenticatable
 
     protected $guarded = [
         "id",
+        'user_id',
         "photo"
     ];
 

@@ -13,7 +13,7 @@ class UpdateUserAchievement
         $validator = Validator::make($request->all(), [
             'achievementName' => ['string', 'max:255'],
             'dateAchieved' => ['string', 'max:255'],
-            'users_id' => ['string', 'exist:users, id'],
+            'user_id' => ['string', 'exist:users, id'],
             'description' => ['string', 'max:255'],
         ]);
 
@@ -30,7 +30,7 @@ class UpdateUserAchievement
                 ->update([
             'achievementName' => $request->achievementName,
             'dateAchieved' => $request->dateAchieved,
-            'users_id' => $request->users_id,
+            'user_id' => $request->user_id,
             'description' => $request->description,
                 ]);
 

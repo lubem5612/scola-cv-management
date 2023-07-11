@@ -24,7 +24,7 @@ class PhotosFactory extends Factory
     public function definition()
     {
         return [
-            'users_id' => config('scolacv.auth_model')::factory(),
+            'user_id' => config('scolacv.auth_model')::factory(),
              'photo' => UploadedFile::fake()->image('profile.jpg'),
         ];
     }

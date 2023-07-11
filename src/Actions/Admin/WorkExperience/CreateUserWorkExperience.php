@@ -33,7 +33,7 @@ class CreateUserWorkExperience
 
     private function createUserWorkExp()
     {
-        $inputs = Arr::only($this->request, ['users_id', 'companyName', 'position', 'responsibilities', 'startDate', 'endDate']);
+        $inputs = Arr::only($this->request, ['user_id', 'companyName', 'position', 'responsibilities', 'startDate', 'endDate']);
         $this->workExperience = WorkExperience::query()->create($inputs);
         if (empty($this->workExperience)) {
             return $this->buildResponse('failed in creating WorkExperience', false, null);
@@ -46,7 +46,7 @@ class CreateUserWorkExperience
         $this->validate($this->request, [
             'companyName' => ['required', 'string', 'max:255'],
             'position' => ['required', 'string', 'max:255'],
-            'users_id' => ['required', 'max:255', 'exists:users,id'],
+            'user_id' => ['required', 'max:255', 'exists:users,id'],
             'responsibilities' => ['required', 'string', 'max:255'],
             'startDate' => 'required'|'string',
             'endDate' => 'required'|'string',

@@ -12,7 +12,7 @@ class CreateWorkExperience
         $validator = Validator::make($request->all(), [
             'companyName' => ['string', 'max:255'],
             'position' => ['string', 'max:255'],
-            'users_id' => ['max:255', 'exists:users,id'],
+            'user_id' => ['max:255', 'exists:users,id'],
             'responsibilities' => ['string', 'max:255'],
             'startDate' => 'string',
             'endDate' => 'string'

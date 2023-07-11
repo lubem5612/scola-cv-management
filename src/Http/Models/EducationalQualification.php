@@ -27,7 +27,6 @@ class EducationalQualification extends Authenticatable
             'startDate',
             'endDate',
             'country',
-            'firstName',
             'id'
         ];
 

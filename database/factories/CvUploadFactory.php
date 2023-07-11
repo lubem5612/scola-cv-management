@@ -24,7 +24,7 @@ class CvUploadFactory extends Factory
     public function definition()
     {
         return [
-            'users_id' => config('scolacv.auth_model')::factory(),
+            'user_id' => config('scolacv.auth_model')::factory(),
             'cvName' => $this->faker->name
         ];
     }
