@@ -1,11 +1,11 @@
 <?php
-namespace Transave\ScolaCvManagement\Actions\User\Specialization;
+namespace Transave\ScolaCvManagement\Actions\Admin\Specialization;
 
 use Illuminate\Support\Facades\Validator;
 use Transave\ScolaCvManagement\Http\Models\Specialization;
 use Illuminate\Http\Request;
 
-class AddSpecialization
+class RegisterSpecialization
 {
     public function handle(Request $request){
 

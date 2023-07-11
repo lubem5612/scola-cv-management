@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Transave\ScolaCvManagement\Http\Controllers\Auth\RegisterNewAccountController;
 use Transave\ScolaCvManagement\Http\Controllers\Auth\LoginAccountController;
 use Transave\ScolaCvManagement\Http\Controllers\Auth\LogoutAcountController;
+use Transave\ScolaCvManagement\Http\Controllers\Auth\ForgotPasswordController;
+
 
 
 //    AUTH ROUTES
@@ -11,6 +13,12 @@ Route::group(['namespace' => 'Transave\ScolaCvManagement\Http\Controllers\Auth',
     Route::POST('register', 'RegisterNewAccountController@register')->name('register');
     Route::POST('login', 'LoginAccountController@login')->name('login');
     Route::POST('logout', 'LogoutAcountController@logout')->name('logout');
+
+    //ForgotPassword Controllers
+
+    Route::post('password/email', 'ForgotPasswordController@forgot');
+    Route::post('password/reset', 'ForgotPasswordController@reset');
+
 });
 
 
@@ -21,6 +29,10 @@ Route::group(['namespace' => 'Transave\ScolaCvManagement\Http\Controllers\User',
     Route::patch('updateAch', 'UserAchievementController@updateAch')->name('updateAch');
     Route::delete('deleteAch', 'UserAchievementController@deleteAch')->name('deleteAch');
     Route::get('viewAllAch', 'UserAchievementController@viewAllAch')->name('viewAllAch');
+
+    //   Controllers\User\PhotController
+    Route::get('/image', 'PhotoController@index')->name('image.index');
+    Route::post('/image', 'PhotoController@store')->name('image.store');
 
     //   Controllers\User\UserProfileController
     Route::patch('edit', 'UserProfileController@edit')->name('edit');
@@ -65,4 +77,3 @@ Route::group(['namespace' => 'Transave\ScolaCvManagement\Http\Controllers\Admin'
 
 
 });
-

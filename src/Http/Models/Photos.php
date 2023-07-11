@@ -14,7 +14,7 @@ class Photos extends Authenticatable
 
     protected $table = 'photos';
 
-    protected $guarded = [
+    protected $fillable = [
         "id",
         'user_id',
         "photo"

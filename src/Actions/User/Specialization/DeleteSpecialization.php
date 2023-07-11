@@ -1,17 +1,17 @@
 <?php
-namespace Transave\ScolaCvManagement\Actions\User\Publication;
+namespace Transave\ScolaCvManagement\Actions\User\Specialization;
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Http\Models\Publications;
+use Transave\ScolaCvManagement\Http\Models\Specialization;
 
 
-class DeletePublication
+class DeleteSpecialization
 {
     public function handle(Request $request){
 
-        $publication = Publications::find($request->id);
+        $specialization= Specialization::find($request->id);
 
-        if ($publication->delete() === false) {
+        if ($specialization->delete() === false) {
             return response()->json([
                 "code"=>400,
                 "status"=> false,
@@ -20,11 +20,11 @@ class DeletePublication
             ]);
         }
         else {
-            $publication->delete();
+            $specialization->delete();
             return response()->json([
                 "code" => 200,
                 "status" => true,
-                "message" => "Publication Deleted Successfully",
+                "message" => "Specialization Deleted Successfully",
             ]);
         }
     }
