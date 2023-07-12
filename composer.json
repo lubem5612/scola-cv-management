@@ -12,15 +12,19 @@
     "homepage": "https://github.com/transave/scola-cv-management",
     "keywords": ["Laravel", "ScolaCvManagement"],
     "require": {
-        "illuminate/support": "~9"
+        "illuminate/contracts": "7.* || ^8.15 || 9.0 - 9.34 || ^9.36 || ^10.0",
+        "ext-json": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~9.0",
-        "orchestra/testbench": "~7"
+        "phpunit/phpunit": "^9.6",
+        "orchestra/testbench": "~3.6.7 || ~3.7.8 || ~3.8.6 || ^4.8 || ^5.2 || ^6.0 || ^7.0",
+        "laravel/sanctum": "^3.2",
+        "matthewbdaly/laravel-azure-storage": "^2.0"
     },
     "autoload": {
         "psr-4": {
-            "Transave\\ScolaCvManagement\\": "src/"
+            "Transave\\ScolaCvManagement\\": "src/",
+            "Transave\\ScolaCvManagement\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
@@ -37,5 +41,9 @@
                 "ScolaCvManagement": "Transave\\ScolaCvManagement\\Facades\\ScolaCvManagement"
             }
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-f": "vendor/bin/phpunit --filter"
     }
 }
