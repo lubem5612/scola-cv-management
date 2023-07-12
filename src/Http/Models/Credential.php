@@ -20,8 +20,8 @@ class Credential extends Authenticatable
 
     protected $fillable = [
         'user_id',
-        'fileName',
-        'doctype',
+        'file',
+        'fileType',
         'id'
     ];
 
