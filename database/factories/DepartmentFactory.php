@@ -3,7 +3,8 @@ namespace Transave\ScolaCvManagement\Database\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Transave\ScolaCvManagement\Http\Models\department;
+use Transave\ScolaCvManagement\Http\Models\Department;
+use Transave\ScolaCvManagement\Http\Models\Faculty;
 
 class DepartmentFactory extends Factory
 {
@@ -23,6 +24,7 @@ class DepartmentFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'faculty_id' => Faculty::factory(),
         ];
     }
 }

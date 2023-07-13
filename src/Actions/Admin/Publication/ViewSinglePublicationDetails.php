@@ -2,13 +2,13 @@
 namespace Transave\ScolaCvManagement\Actions\Admin\Publication;
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Http\Models\Publications;
+use Transave\ScolaCvManagement\Http\Models\Publication;
 
 class ViewSinglePublicationDetails
 {
     public function handle(Request $request){
 
-        $user = Publications::all()->where('id', $request->id)->first();
+        $user = Publication::all()->where('id', $request->id)->first();
 
         if($user === null) {
             return response()->json([

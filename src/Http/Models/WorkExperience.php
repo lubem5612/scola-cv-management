@@ -2,35 +2,27 @@
 
 namespace Transave\ScolaCvManagement\Http\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Transave\ScolaCvManagement\Database\Factories\WorkExperienceFactory;
+use Transave\ScolaCvManagement\Helpers\UUIDHelper;
 
-class WorkExperience extends Authenticatable
+class WorkExperience extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, UUIDHelper;
 
+    protected $guarded = ['id'];
 
+    protected $table = 'work_experiences';
 
-              //  protected $guarded = [];
+    public function cv() : BelongsTo
+    {
+        return $this->belongsTo(CV::class);
+    }
 
-              protected $table = 'work_experience';
-
-              protected $fillable = [
-                  'id',
-                  'user_id',
-                  'companyName',
-                  'position',
-                  'responsibilities',
-                  'startDate',
-                  'endDate'
-              ];
     protected static function newFactory()
     {
         return WorkExperienceFactory::new();
     }
-
 }

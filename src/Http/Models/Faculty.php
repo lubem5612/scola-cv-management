@@ -2,26 +2,24 @@
 
 namespace Transave\ScolaCvManagement\Http\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Transave\ScolaCvManagement\Database\Factories\FacultyFactory;
+use Transave\ScolaCvManagement\Helpers\UUIDHelper;
 
-class Faculty extends Authenticatable
+class Faculty extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, UUIDHelper;
 
+    protected $guarded = [ 'id' ];
 
-        //  protected $guarded = [];
+    protected $table = 'faculties';
 
-        protected $table = 'faculty';
-
-        protected $fillable = [
-            'name',
-            'id',
-        ];
+    public function departments() : HasMany
+    {
+        return $this->hasMany(Department::class);
+    }
 
     protected static function newFactory()
     {

@@ -2,28 +2,24 @@
 
 namespace Transave\ScolaCvManagement\Http\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Transave\ScolaCvManagement\Database\Factories\SpecializationFactory;
+use Transave\ScolaCvManagement\Helpers\UUIDHelper;
 
-class Specialization extends Authenticatable
+class Specialization extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, UUIDHelper;
 
+    protected $guarded = ['id'];
 
-               //  protected $guarded = [];
+    protected $table = 'specialization';
 
-               protected $table = 'specialization';
-
-               protected $fillable = [
-                   'id',
-                   'user_id',
-                   'name',
-                   'description'
-               ];
+    public function cv() : BelongsTo
+    {
+        return $this->belongsTo(CV::class);
+    }
 
     protected static function newFactory()
     {

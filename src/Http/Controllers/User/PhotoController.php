@@ -4,7 +4,7 @@ namespace Transave\ScolaCvManagement\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Transave\ScolaCvManagement\Http\Models\Photos;
+use Transave\ScolaCvManagement\Http\Models\Gallery;
 use function response;
 use function view;
 
@@ -23,7 +23,7 @@ class PhotoController extends Controller
 
         $image_path = $request->file('image')->store('image', 'public');
 
-        $data = Photos::create([
+        $data = Gallery::create([
             'image' => $image_path,
         ]);
 

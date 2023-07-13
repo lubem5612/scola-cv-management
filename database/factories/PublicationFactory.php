@@ -3,7 +3,7 @@
 namespace Transave\ScolaCvManagement\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Transave\ScolaCvManagement\Http\Models\Publications;
+use Transave\ScolaCvManagement\Http\Models\Publication;
 use Transave\ScolaCvManagement\Http\Models\User;
 
 class PublicationFactory extends Factory
@@ -13,7 +13,7 @@ class PublicationFactory extends Factory
      *
      * @var string
      */
-    protected $model = Publications::class;
+    protected $model = Publication::class;
 
     /**
      * Define the model's default state.

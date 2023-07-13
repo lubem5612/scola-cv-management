@@ -4,7 +4,7 @@ namespace Transave\Scolacvmanagement\Database\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Transave\Scolacvmanagement\Http\Models\Achievements;
+use Transave\Scolacvmanagement\Http\Models\Achievement;
 
 class AchievementFactory extends Factory
 {
@@ -13,7 +13,7 @@ class AchievementFactory extends Factory
      *
      * @var string
      */
-    protected $model = Achievements::class;
+    protected $model = Achievement::class;
 
     /**
      * Define the model's default state.
@@ -24,8 +24,8 @@ class AchievementFactory extends Factory
     {
         return [
             'user_id' => config('scolacv.auth_model')::factory(),
-            'achievementName' => $this->faker->word,
-            'dateAchieved' => $this->faker->dateTime,
+            'title' => $this->faker->word,
+            'date_achieved' => $this->faker->dateTime,
             'description' => $this->faker->sentence,
         ];
     }

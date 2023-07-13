@@ -2,7 +2,7 @@
 
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
-use Transave\ScolaCvManagement\Http\Models\Achievements;
+use Transave\ScolaCvManagement\Http\Models\Achievement;
 use Orchestra\Testbench\TestCase;
 
 class AchievementsModelTest extends TestCase
@@ -14,6 +14,6 @@ class AchievementsModelTest extends TestCase
 
     public function test_can_check_if_achievement_model_exists()
     {
-        $this->assertTrue(class_exists(Achievements::class), 'Achievements model does not exist.');
+        $this->assertTrue(class_exists(Achievement::class), 'Achievements model does not exist.');
     }
 }

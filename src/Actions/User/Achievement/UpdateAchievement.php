@@ -1,7 +1,7 @@
 <?php
 namespace Transave\ScolaCvManagement\Actions\User\Achievement;
 
-use Transave\ScolaCvManagement\Http\Models\Achievements;
+use Transave\ScolaCvManagement\Http\Models\Achievement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,7 +26,7 @@ class UpdateAchievement
         }
 
         if ($validator->passes()) {
-            $update = Achievements::query()->where('id', $request->id)
+            $update = Achievement::query()->where('id', $request->id)
                 ->update([
                     'achievementName' => $request->achievementName,
                     'description' => $request->description,

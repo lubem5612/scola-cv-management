@@ -4,7 +4,7 @@ namespace Transave\ScolaCvManagement\Actions\Admin\School;
 use Transave\ScolaCvManagement\Http\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Transave\ScolaCvManagement\Http\Models\Schools;
+use Transave\ScolaCvManagement\Http\Models\School;
 
 
 class UpdateSchool
@@ -25,7 +25,7 @@ class UpdateSchool
         }
 
         if ($validator->passes()) {
-            $update = Schools::query()->where('id', $request->id)
+            $update = School::query()->where('id', $request->id)
                 ->update([
                     'name' => $request->name
                 ]);

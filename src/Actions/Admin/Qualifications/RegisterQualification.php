@@ -5,7 +5,7 @@ namespace Transave\ScolaCvManagement\Actions\Admin\Qualifications;
 use Illuminate\Support\Arr;
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
-use Transave\ScolaCvManagement\Http\Models\Qualifications;
+use Transave\ScolaCvManagement\Http\Models\Qualification;
 
 
 class RegisterQualification
@@ -34,7 +34,7 @@ class RegisterQualification
     private function createQualification()
     {
         $inputs = Arr::only($this->request, ['qualification']);
-        $this->qualifications = Qualifications::query()->create($inputs);
+        $this->qualifications = Qualification::query()->create($inputs);
         if (empty($this->qualifications)) {
             return $this->buildResponse('failed in creating Qualification', false, null);
         }

@@ -2,7 +2,7 @@
 namespace Transave\ScolaCvManagement\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Transave\ScolaCvManagement\Http\Models\Qualifications;
+use Transave\ScolaCvManagement\Http\Models\Qualification;
 
 class QualificationFactory extends Factory
 {
@@ -11,7 +11,7 @@ class QualificationFactory extends Factory
      *
      * @var string
      */
-    protected $model = Qualifications::class;
+    protected $model = Qualification::class;
 
     /**
      * Define the model's default state.

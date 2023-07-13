@@ -2,7 +2,7 @@
 namespace Transave\ScolaCvManagement\Actions\User\EducationalQualification;
 
 use Illuminate\Support\Facades\Validator;
-use Transave\ScolaCvManagement\Http\Models\Achievements;
+use Transave\ScolaCvManagement\Http\Models\Achievement;
 use Illuminate\Http\Request;
 
 class AddQualification
@@ -30,7 +30,7 @@ class AddQualification
         }
 
         $input = $request->all();
-        $qualification = Achievements::create($input);
+        $qualification = Achievement::create($input);
         $success['user_id'] =  $qualification->user_id;
         $success['institutionName'] =  $qualification->institutionName;
         $success['department_id'] = $qualification->department_id;

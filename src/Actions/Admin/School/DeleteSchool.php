@@ -2,14 +2,14 @@
 namespace Transave\ScolaCvManagement\Actions\Admin\School;
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Http\Models\Schools;
+use Transave\ScolaCvManagement\Http\Models\School;
 
 
 class DeleteSchool
 {
     public function handle(Request $request){
 
-        $del = Schools::find($request->id);
+        $del = School::find($request->id);
 
         if ($del->delete() === false) {
             return response()->json([
