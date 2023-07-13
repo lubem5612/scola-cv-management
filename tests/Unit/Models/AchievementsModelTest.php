@@ -16,13 +16,13 @@ class AchievementsModelTest extends TestCase
     }
 
     /** @test */
-    public function course_model_can_be_initiated_with_factory()
+    public function achievement_model_can_be_initiated_with_factory()
     {
         $this->assertTrue($this->achievement instanceof Achievement);
     }
 
     /** @test */
-    public function courses_table_exists_in_database()
+    public function achievement_table_exists_in_database()
     {
         $this->assertModelExists($this->achievement);
     }
