@@ -5,7 +5,7 @@ namespace Transave\ScolaCvManagement\Actions\Admin\School;
 use Illuminate\Support\Arr;
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
-use Transave\ScolaCvManagement\Http\Models\Schools;
+use Transave\ScolaCvManagement\Http\Models\School;
 
 
 class CreateSchool
@@ -34,7 +34,7 @@ class CreateSchool
     private function createSchool()
     {
         $inputs = Arr::only($this->request, ['name']);
-        $this->schools = Schools::query()->create($inputs);
+        $this->schools = School::query()->create($inputs);
         if (empty($this->schools)) {
             return $this->buildResponse('failed in creating School', false, null);
         }

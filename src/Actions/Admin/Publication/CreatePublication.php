@@ -5,7 +5,7 @@ namespace Transave\ScolaCvManagement\Actions\Admin\Publication;
 use Illuminate\Support\Arr;
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
-use Transave\ScolaCvManagement\Http\Models\Publications;
+use Transave\ScolaCvManagement\Http\Models\Publication;
 
 
 class CreatePublication
@@ -34,7 +34,7 @@ class CreatePublication
     private function createUserPublication()
     {
         $inputs = Arr::only($this->request, ['user_id', 'publication']);
-        $this->publications = Publications::query()->create($inputs);
+        $this->publications = Publication::query()->create($inputs);
         if (empty($this->publications)) {
             return $this->buildResponse('failed in creating Publication', false, null);
         }

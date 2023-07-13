@@ -35,7 +35,7 @@ class SchoolController extends Controller
 
 
 
-    // view all Schools Registered
+    // view all School Registered
     public function viewSch(Request $request, RegisteredSchools $registeredSchools)
     {
         $update = $registeredSchools->handle($request);

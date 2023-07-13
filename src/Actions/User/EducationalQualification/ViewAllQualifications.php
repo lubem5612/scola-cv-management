@@ -13,7 +13,7 @@ class ViewAllQualifications
         $list = EducationalQualification::all()->where('user_id', $request->user_id)->first();
         return response()->json([
             'Status'=>200,
-            'message'=>"List of Registered Qualifications",
+            'message'=>"List of Registered Qualification",
             'data' =>$list
         ]);
     }

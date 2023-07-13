@@ -14,9 +14,11 @@ class CreatePublicationsTable extends Migration
     public function up()
     {
         Schema::create('publications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->string('publication');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
+            $table->string('short_description')->nullable()->index();
+            $table->text('description');
+            $table->string('link', 700)->nullable();
             $table->timestamps();
         });
     }

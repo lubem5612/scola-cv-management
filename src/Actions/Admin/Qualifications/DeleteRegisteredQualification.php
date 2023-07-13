@@ -2,14 +2,14 @@
 namespace Transave\ScolaCvManagement\Actions\Admin\Qualifications;
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Http\Models\Qualifications;
+use Transave\ScolaCvManagement\Http\Models\Qualification;
 
 
 class DeleteRegisteredQualification
 {
     public function handle(Request $request){
 
-        $query = Qualifications::find($request->id);
+        $query = Qualification::find($request->id);
 
         if ($query->delete() === false) {
             return response()->json([

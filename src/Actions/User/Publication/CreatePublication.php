@@ -2,7 +2,7 @@
 namespace Transave\ScolaCvManagement\Actions\User\Publication;
 
 use Illuminate\Support\Facades\Validator;
-use Transave\ScolaCvManagement\Http\Models\Achievements;
+use Transave\ScolaCvManagement\Http\Models\Achievement;
 use Illuminate\Http\Request;
 
 class CreatePublication
@@ -24,7 +24,7 @@ class CreatePublication
         }
 
             $input = $request->all();
-            $query = Achievements::create($input);
+            $query = Achievement::create($input);
             $success['publication'] =  $query->publication;
             $success['user_id'] = $query->user_id;
 

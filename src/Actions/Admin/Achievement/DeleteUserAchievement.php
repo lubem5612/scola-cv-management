@@ -2,14 +2,14 @@
 namespace Transave\ScolaCvManagement\Actions\Admin\Achievement;
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Http\Models\Achievements;
+use Transave\ScolaCvManagement\Http\Models\Achievement;
 
 
 class DeleteUserAchievement
 {
     public function handle(Request $request){
 
-        $achievement = Achievements::find($request->id);
+        $achievement = Achievement::find($request->id);
 
         if ($achievement->delete() === false) {
             return response()->json([

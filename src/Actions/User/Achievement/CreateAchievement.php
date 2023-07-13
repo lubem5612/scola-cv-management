@@ -2,7 +2,7 @@
 namespace Transave\ScolaCvManagement\Actions\User\Achievement;
 
 use Illuminate\Support\Facades\Validator;
-use Transave\ScolaCvManagement\Http\Models\Achievements;
+use Transave\ScolaCvManagement\Http\Models\Achievement;
 use Illuminate\Http\Request;
 
 class CreateAchievement
@@ -27,7 +27,7 @@ class CreateAchievement
 
 
             $input = $request->all();
-            $achievement = Achievements::create($input);
+            $achievement = Achievement::create($input);
             $success['achievementName'] =  $achievement->achievementName;
             $success['dateAchieved'] =  $achievement->dateAchieved;
             $success['user_id'] = $achievement->user_id;

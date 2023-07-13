@@ -2,32 +2,24 @@
 
 namespace Transave\ScolaCvManagement\Http\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Transave\ScolaCvManagement\Database\Factories\CredentialsFactory;
+use Illuminate\Database\Eloquent\Model;
+use Transave\ScolaCvManagement\Database\Factories\CredentialFactory;
+use Transave\ScolaCvManagement\Helpers\UUIDHelper;
 
-class Credential extends Authenticatable
+class Credential extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, UUIDHelper;
 
-
-    //  protected $guarded = [];
+    protected $guarded = [
+        "id"
+    ];
 
     protected $table = 'credentials';
 
-    protected $fillable = [
-        'user_id',
-        'file',
-        'fileType',
-        'id'
-    ];
-
     protected static function newFactory()
     {
-        return CredentialsFactory::new();
+        return CredentialFactory::new();
     }
 
 }

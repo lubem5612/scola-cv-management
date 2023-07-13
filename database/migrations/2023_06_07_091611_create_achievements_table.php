@@ -13,11 +13,11 @@ class CreateAchievementsTable extends Migration
     public function up()
     {
         Schema::create('achievements', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id');
-            $table->string('achievementName');
-            $table->string('dateAchieved');
-            $table->string('description');
+            $table->uuid('id')->primary();
+            $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
+            $table->string('title')->index();
+            $table->timestamp('date_achieved')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

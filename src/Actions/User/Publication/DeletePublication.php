@@ -2,14 +2,14 @@
 namespace Transave\ScolaCvManagement\Actions\User\Publication;
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Http\Models\Publications;
+use Transave\ScolaCvManagement\Http\Models\Publication;
 
 
 class DeletePublication
 {
     public function handle(Request $request){
 
-        $publication = Publications::find($request->id);
+        $publication = Publication::find($request->id);
 
         if ($publication->delete() === false) {
             return response()->json([

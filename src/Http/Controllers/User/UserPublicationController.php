@@ -21,7 +21,7 @@ class UserPublicationController extends Controller
     }
 
 
-    // Update Publications
+    // Update Publication
     public function updatePub(Request $request, UpdatePublication $updatePublication)
     {
         $update = $updatePublication->handle($request);
@@ -29,7 +29,7 @@ class UserPublicationController extends Controller
     }
 
 
-    // View All Publications
+    // View All Publication
     public function viewAllPub(Request $request, RegisteredPublications $registeredPublications)
     {
         $viewall = $registeredPublications->handle($request);
@@ -45,7 +45,7 @@ class UserPublicationController extends Controller
     }
 
 
-    // Delete Publications
+    // Delete Publication
     public function deletePub(Request $request, DeletePublication $deletePublication)
     {
         $delete = $deletePublication->handle($request);

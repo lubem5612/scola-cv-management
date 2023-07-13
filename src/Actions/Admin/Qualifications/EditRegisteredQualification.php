@@ -1,7 +1,7 @@
 <?php
 namespace Transave\ScolaCvManagement\Actions\Admin\Qualifications;
 
-use Transave\ScolaCvManagement\Http\Models\Qualifications;
+use Transave\ScolaCvManagement\Http\Models\Qualification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,7 +23,7 @@ class EditRegisteredQualification
         }
 
         if ($validator->passes()) {
-            $update = Qualifications::query()->where('id', $request->id)
+            $update = Qualification::query()->where('id', $request->id)
                 ->update([
                     'qualification' => $request->qualification
                 ]);

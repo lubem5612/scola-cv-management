@@ -1,7 +1,7 @@
 <?php
 namespace Transave\ScolaCvManagement\Actions\Admin\Publication;
 
-use Transave\ScolaCvManagement\Http\Models\Publications;
+use Transave\ScolaCvManagement\Http\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,7 +26,7 @@ class UpdateUserPublication
         }
 
         if ($validator->passes()) {
-            $user = Publications::query()->where('id', $request->id)
+            $user = Publication::query()->where('id', $request->id)
                 ->update([
                     'achievementName' => $request->achievementName,
                     'description' => $request->description,
