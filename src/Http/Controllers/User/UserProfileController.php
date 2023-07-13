@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Transave\ScolaCvManagement\Actions\User\ProfileActions\UpdateProfile;
 use Transave\ScolaCvManagement\Actions\User\ProfileActions\ViewProfile;
+use Transave\ScolaCvManagement\Actions\User\ProfileActions\ChangePassword;
 
 
 
@@ -24,5 +25,12 @@ class UserProfileController extends Controller
     {
         $view = $viewProfile->handle($request);
         return $view;
+    }
+
+    // Update Password
+    public function editPassword(Request $request, ChangePassword $changePassword)
+    {
+        $change = $changePassword->handle($request);
+        return $change;
     }
 }

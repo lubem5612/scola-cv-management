@@ -7,6 +7,7 @@ use Transave\ScolaCvManagement\Actions\Admin\UserActions\DeleteUser;
 use Transave\ScolaCvManagement\Actions\Admin\UserActions\RegisteredUsers;
 use Transave\ScolaCvManagement\Actions\Admin\UserActions\ShowUserDetails;
 use Transave\ScolaCvManagement\Actions\Admin\UserActions\UpdateUser;
+use Transave\ScolaCvManagement\Actions\Admin\Auth\UpdateUserPassword;
 
 
 class UserController extends Controller
@@ -50,6 +51,13 @@ class UserController extends Controller
     {
         $update = $showUserDetails->handle($request);
         return $update;
+    }
+
+    // Update Password
+    public function editPassword(Request $request, UpdateUserPassword $updateUserPassword)
+    {
+        $change = $updateUserPassword->handle($request);
+        return $change;
     }
 
 }
