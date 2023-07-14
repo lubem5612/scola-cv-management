@@ -5,12 +5,10 @@ namespace Transave\ScolaCvManagement;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Transave\ScolaCvManagement\Helpers\PublishMigrations;
 use Transave\ScolaCvManagement\Http\Models\User;
 
 class ScolaCvManagementServiceProvider extends ServiceProvider
 {
-    use PublishMigrations;
     /**
      * Register services.
      *
@@ -103,6 +101,9 @@ class ScolaCvManagementServiceProvider extends ServiceProvider
     {
         Route::group($this->routeConfiguration(), function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
+        });
+        Route::middleware('web')->prefix('cv')->group(function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
     }
 

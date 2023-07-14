@@ -4,17 +4,23 @@ namespace Transave\ScolaCvManagement\Actions\Auth;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
+use Transave\ScolaCvManagement\Actions\Action;
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
+use Transave\ScolaCvManagement\Helpers\UploadHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
 use Transave\ScolaCvManagement\Http\Models\User;
+use Transave\ScolaCvManagement\Http\Notifications\WelcomeNotification;
 
 class CreateAccount
 {
+    use ValidationHelper, ResponseHelper, UploadHelper;
 
-    use ValidationHelper, ResponseHelper;
-    private $request, $user;
+    private array $request;
+    private array $validatedInput;
+    private $user;
 
-    public function __construct(array  $request)
+    public function __construct(array $request)
     {
         $this->request = $request;
     }
@@ -23,11 +29,13 @@ class CreateAccount
     {
         try{
             return $this
-                ->handle()
+                ->validateRequest()
                 ->setUserPassword()
+                ->uploadPhoto()
                 ->setVerificationToken()
                 ->createUser()
-                ->buildResponse('created successfully', true, $this->user);
+                ->sendNotification()
+                ->sendSuccess($this->user, 'account created successfully');
         }catch (\Exception $exception){
             return $this->sendServerError($exception);
         }
@@ -35,42 +43,87 @@ class CreateAccount
 
     private function setUserPassword() : self
     {
-        $this->request['password'] = bcrypt($this->request['password']);
+        $this->validatedInput['password'] = bcrypt($this->validatedInput['password']);
         return $this;
     }
 
-
-    private function createUser()
+    private function createUser() : self
     {
-        $inputs = Arr::only($this->request, ['email', 'password', 'firstName', 'lastName', 'faculty_id', 'department_id', 'user_type', 'password']);
-        $this->user = User::query()->create($inputs);
-        if (empty($this->user)) {
-            return $this->buildResponse('failed in creating user', false, null);
+        $this->user = User::query()->create($this->validatedInput);
+        return $this;
+    }
+
+    private function setUserType() : self
+    {
+        if (!array_key_exists('user_type', $this->validatedInput))
+        {
+            $this->validatedInput['user_type'] = 'user';
         }
         return $this;
     }
 
-
     private function setVerificationToken() : self
     {
-        $this->request['token'] = rand(100000, 999999);
-        $this->request['email_verified_at'] = Carbon::now();
+        $this->validatedInput['token'] = rand(100000, 999999);
+        $this->validatedInput['email_verified_at'] = Carbon::now();
         return $this;
     }
 
-    public function handle(): self
+    private function uploadPhoto()
     {
-        $this->validate($this->request, [
+        if (request()->hasFile('picture')) {
+            $response = $this->fileUpload(request()->file('picture'), 'cv-management/profiles');
+            if ($response['success']) {
+                $this->validatedInput['picture'] = $response['upload_url'];
+            }
+        }
+        return $this;
+    }
+
+    private function sendNotification()
+    {
+        try {
+            Notification::route('mail', $this->user->email)
+                ->notify(new WelcomeNotification([
+                    "token" => $this->validatedInput['token'],
+                    "user" => $this->user
+                ]));
+        } catch (\Exception $exception) {
+        }
+        return $this;
+    }
+
+    public function validateRequest(): self
+    {
+        $data = $this->validate($this->request, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'faculty_id' => ['required', 'string', 'max:255'],
-            'department_id' => ['required', 'string'],
-            'email' => ['required', 'string', 'unique:user', 'email'],
-            'user_type' => ['string', 'max:225'],
+            'email' => ['required', 'string', 'email', 'unique:users'],
+            'user_type' => ['string', 'in:admin,user'],
             'password' => ['required', 'string'],
             'password_confirmation' => ['required', 'same:password'],
+            'school_id' => ["sometimes", "required", "exists:schools,id"],
+            'department_id' => ["sometimes", "required", "exists:departments,id"],
+            'qualification_id' => ["sometimes", "required", "exists:qualifications,id"],
+            'country_of_origin_id' => ["sometimes", "required", "exists:countries,id"],
+            'country_of_residence_id' => ["sometimes", "required", "exists:countries,id"],
+            'lg_of_residence_id' => ["sometimes", "required", "exists:lgs,id"],
+            'lg_of_origin_id' => ["sometimes", "required", "exists:lgs,id"],
+            'picture' => ["sometimes", "required", "file", "max:5000", "mimes:jpg,jpeg,gif,webp"],
+            "token" => ["nullable"],
+            "is_verified" => ["sometimes", "required", "integer", "in:0,1"],
+            "email_verified_at" => ["sometimes", "required", "date"],
+            'phone' => ["sometimes", "required", "string", "max:16", "min:8"],
+            'gender' => ["sometimes", "required", "in:male,female,other"],
+            'marital_status' => ["sometimes", "required", "in:single,divorced,widowed,married"],
+            'residential_address' => ["sometimes", "required", "string", "max:255"],
+            'permanent_address' => ["sometimes", "required", "string", "max:255"],
+            'dob' => ["sometimes", "required", "date"],
+            'no_of_children' => ["sometimes", "required", "integer"],
+            'status' => ["sometimes", "required", "in:active,inactive,suspended"]
         ]);
 
+        $this->validatedInput = Arr::except($data, ['picture']);
         return $this;
     }
 }

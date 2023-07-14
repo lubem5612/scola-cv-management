@@ -2,6 +2,7 @@
 namespace Transave\ScolaCvManagement\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Transave\ScolaCvManagement\Http\Models\Country;
 use Transave\ScolaCvManagement\Http\Models\Department;
@@ -29,18 +30,21 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-
         return [
             'first_name' => $this->faker->name,
             'last_name' => $this->faker->name,
+            'user_type' => $this->faker->randomElement(config('scolacv.user_type')),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'qualification_id' => Qualification::factory(),
+            'country_of_origin_id' => Country::factory(),
+            'country_of_residence_id' => Country::factory(),
+            'lg_of_residence_id' => Lg::factory(),
+            'lg_of_origin_id' =>Lg::factory(),
             'school_id' => School::factory(),
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
             'is_verified' => $this->faker->randomElement([0, 1]),
             'department_id' => Department::factory(),
-            'faculty_id' => Faculty::factory(),
-            'state_of_origin' => $this->faker->sentence(20),
-            'state_of_resident'=> $this->faker->sentence(20),
             'residential_address'=> $this->faker->sentence(20),
             'permanent_address'=> $this->faker->sentence(20),
             'marital_status'=> $this->faker->word,
@@ -48,15 +52,9 @@ class UserFactory extends Factory
             'no_of_children'=> $this->faker->randomDigit(),
             'gender'=> $this->faker->word,
             'phone'=> $this->faker->phoneNumber,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-            'user_type' => $this->faker->randomElement(config('scolacv.user_type')),
-            'qualification_id' => Qualification::factory(),
-            'country_of_origin_id' => Country::factory(),
-            'country_of_residence_id' => Country::factory(),
-            'lg_of_residence_id' =>  Lg::factory(),
-            'lg_of_origin_id' => Lg::factory(),
-
+            'picture' => UploadedFile::fake()->image('photo.jpg'),
+            "token" => Str::random(10),
+            'status' => $this->faker->randomElement(['active', 'inactive', 'suspended']),
         ];
     }
 
