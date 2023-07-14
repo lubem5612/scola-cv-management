@@ -26,9 +26,10 @@ class CreateUsersTable extends Migration
             $table->string('email', 100)->unique();
             $table->string('password');
             $table->string('picture', 700)->nullable();
+            $table->string('token')->nullable();
             $table->boolean('is_verified')->default(false)->index();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('user_type')->nullable();
+            $table->string('user_type')->default('other');
             $table->string('phone', 20)->unique()->nullable();
             $table->string('gender', 20)->nullable();
             $table->string('marital_status', 50)->nullable();
@@ -37,7 +38,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('dob')->nullable();
             $table->integer('no_of_children')->nullable();
             $table->string('status', 40)->default('active');
-            $table->rememberToken();
             $table->timestamps();
         });
 

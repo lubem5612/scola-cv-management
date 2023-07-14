@@ -104,6 +104,9 @@ class ScolaCvManagementServiceProvider extends ServiceProvider
         Route::group($this->routeConfiguration(), function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
         });
+        Route::middleware('web')->prefix('cv')->group(function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        });
     }
 
     protected function routeConfiguration()
