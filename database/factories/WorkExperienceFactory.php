@@ -3,6 +3,7 @@
 namespace Transave\ScolaCvManagement\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Transave\ScolaCvManagement\Http\Models\CV;
 use Transave\ScolaCvManagement\Http\Models\WorkExperience;
 use Transave\ScolaCvManagement\Http\Models\User;
 
@@ -24,11 +25,11 @@ class WorkExperienceFactory extends Factory
     {
 
         return [
-            'user_id' => config('scolacv.auth_model')::factory(),
+            'cv_id' => CV::factory(),
             'responsibilities' => $this->faker->sentence,
-            'companyName' => $this->faker->company,
-            'startDate' => $this->faker->date(),
-            'endDate' => $this->faker->date(),
+            'company_name' => $this->faker->company,
+            'start_date' => $this->faker->date(),
+            'end_date' => $this->faker->date(),
             'created_at'=>$this->faker->dateTime(),
         ];
     }

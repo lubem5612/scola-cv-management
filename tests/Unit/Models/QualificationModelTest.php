@@ -2,17 +2,28 @@
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
 use Transave\ScolaCvManagement\Http\Models\Qualification;
-use Orchestra\Testbench\TestCase;
+use Transave\ScolaCvManagement\Tests\TestCase;
+
 
 class QualificationModelTest extends TestCase
 {
+    private $qualification;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->qualification = Qualification::factory()->create();
     }
 
-    public function test_can_check_if_Qualifications_model_exists()
+    /** @test */
+    public function qualification_model_can_be_initiated_with_factory()
     {
-        $this->assertTrue(class_exists(Qualification::class), 'Qualification model does not exist.');
+        $this->assertTrue($this->qualification instanceof Qualification);
+    }
+
+    /** @test */
+    public function qualification_table_exists_in_database()
+    {
+        $this->assertModelExists($this->qualification);
     }
 }

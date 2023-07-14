@@ -12,21 +12,24 @@ class UpdateUser
     {
 
         $validator = Validator::make($request->all(), [
-            'firstName' => ['string', 'max:255'],
-            'lastName' => ['string', 'max:255'],
-            'email' => ['string', 'unique:user', 'email'],
-            'password' => ['string', 'max:255'],
-            'password_confirmation' => ['string', 'same:password'],
-            'phone' => ['string', 'max:255'],
-            'gender' => ['string', 'max:255'],
-            'marital_status' => ['string', 'max:255'],
-            'nationality' => ['string', 'max:255'],
-            'lga' => ['string', 'max:255'],
-            'state_of_resident' => ['string', 'max:255'],
-            'residential_address' => ['string', 'max:255'],
-            'permanent_address' => ['string', 'max:255'],
-            'dob' => ['string', 'max:255'],
-            'no_of_children' => ['string', 'max:255']
+            'first_name' => ['string', 'max:225'],
+            'last_name' => ['string', 'max:225'],
+            'department_id' => ['string', 'exists:departments,id'],
+            'faculty_id' => ['string', 'exists:faculties,id'],
+            'marital_status' => ['string', 'max:225'],
+            'gender' => ['string', 'max:225'],
+            'phone' => ['string', 'max:225'],
+            'email' => ['string', 'max:225'],
+            'school_id' => ['string', 'exists:schools,id'],
+            'qualification_id' => ['string', 'exists:qualifications,id'],
+            'country_of_origin_id' => ['string', 'exists:countries,id'],
+            'country_of_residence_id' => ['string', 'exists:countries,id'],
+            'lg_of_residence_id' => ['string', 'exists:lgs,id'],
+            'lg_of_origin_id' => ['string', 'exists:lgs,id'],
+            'residential_address' => ['string', 'max:225'],
+            'permanent_address' => ['string', 'max:225'],
+            'dob' => ['string', 'max:225'],
+            'no_of_children' => ['string', 'max:225'],
         ]);
 
         if ($validator->fails()) {
@@ -40,20 +43,24 @@ class UpdateUser
         if ($validator->passes()) {
             $profile = User::all()->where('id', $request->id)
                 ->update([
-                    'firstName' => $request->get('firstName'),
-                    'password' => bcrypt($request->password),
-                    'lastName' => $request->get('lastName'),
-                    'email' => $request->get('email'),
-                    'gender' => $request->get('gender'),
-                    'phone' => $request->get('phone'),
-                    'marital_status' => $request->get('marital_status'),
-                    'nationality' => $request->get('nationality'),
-                    'state_of_resident' => $request->get('state_of_resident'),
-                    'lga' => $request->get('lga'),
-                    'residential_address' => $request->get('residential_address'),
-                    'permanent_address' => $request->get('permanent_address'),
-                    'dob' => $request->get('dob'),
-                    'no_of_children' => $request->get('no_of_children')
+                    'first_name' => $request->first_name,
+                    'department_id' => $request->department_id,
+                    'faculty_id' => $request->faculty_id,
+                    'last_name' => $request->last_name,
+                    'marital_status' => $request->marital_status,
+                    'gender' => $request->gender,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    'school_id' => $request->school_id,
+                    'qualification_id' => $request->qualification_id,
+                    'country_of_origin_id' => $request->country_of_origin_id,
+                    'country_of_residence_id' => $request->country_of_residence_id,
+                    'lg_of_residence_id' => $request->lg_of_residence_id,
+                    'lg_of_origin_id' => $request->lg_of_origin_id,
+                    'residential_address' => $request->residential_address,
+                    'permanent_address' => $request->permanent_address,
+                    'dob' => $request->dob,
+                    'no_of_children' => $request->no_of_children,
                 ]);
 
             return response()->json([

@@ -11,10 +11,10 @@ class UpdateAchievement
     public function handle(Request $request)
     {
         $validator = Validator::make($request->all(), [
-
-                'achievementName' => ['required', 'string', 'max:255'],
-                'dateAchieved' => ['string', 'max:255'],
-                'description' => ['string', 'max:255']
+            'cv_id' => ['string', 'max:255', 'exists:cvs, id'],
+            'title' => ['string', 'max:255'],
+            'date_achieved' => ['string', 'max:255'],
+            'description' => ['string', 'max:255'],
             ]);
 
         if ($validator->fails()) {
@@ -28,9 +28,10 @@ class UpdateAchievement
         if ($validator->passes()) {
             $update = Achievement::query()->where('id', $request->id)
                 ->update([
-                    'achievementName' => $request->achievementName,
-                    'description' => $request->description,
-                    'dateAchieved' => $request->dateAchieved
+                    'cv_id' => $request->cv_id,
+                    'title' => $request->title,
+                    'date_achieved' => $request->date_achieved,
+                    'description' => $request->description
                 ]);
             return response()->json([
                 'Status' => 200,

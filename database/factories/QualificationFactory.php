@@ -22,7 +22,7 @@ class QualificationFactory extends Factory
     {
 
         return [
-            'qualification' => $this->faker->sentence,
+            'name' => $this->faker->sentence,
         ];
     }
 }

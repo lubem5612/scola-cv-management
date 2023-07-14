@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Transave\ScolaCvManagement\Database\Factories\WorkExperienceFactory;
 use Transave\ScolaCvManagement\Helpers\UUIDHelper;
 
+
 class WorkExperience extends Model
 {
     use HasFactory, UUIDHelper;

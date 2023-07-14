@@ -53,8 +53,8 @@ class RegisterAdmin
     public function validateRequest(): self
     {
         $this->validate($this->request, [
-            'firstName' => ['required', 'string', 'max:255'],
-            'lastName' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'faculty_id' => ['required', 'string', 'exists:faculty, id'],
             'department_id' => ['required', 'string', 'exists:department, id'],
             'email' => ['required', 'string', 'unique:users', 'email'],

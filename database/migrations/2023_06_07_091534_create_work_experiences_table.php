@@ -16,8 +16,8 @@ class CreateWorkExperiencesTable extends Migration
         Schema::create('work_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
-            $table->string('company')->index();
-            $table->string('position', 150)->index();
+            $table->string('company_name')->index();
+            $table->string('position', 150)->nullable()->index();
             $table->text('responsibilities');
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();

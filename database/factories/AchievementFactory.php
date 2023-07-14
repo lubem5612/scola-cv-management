@@ -5,6 +5,7 @@ namespace Transave\Scolacvmanagement\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Transave\Scolacvmanagement\Http\Models\Achievement;
+use Transave\ScolaCvManagement\Http\Models\CV;
 
 class AchievementFactory extends Factory
 {
@@ -23,7 +24,7 @@ class AchievementFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => config('scolacv.auth_model')::factory(),
+            'cv_id' => CV::factory(),
             'title' => $this->faker->word,
             'date_achieved' => $this->faker->dateTime,
             'description' => $this->faker->sentence,

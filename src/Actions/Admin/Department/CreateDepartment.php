@@ -33,7 +33,7 @@ class CreateDepartment
 
     private function createDept()
     {
-        $inputs = Arr::only($this->request, ['name']);
+        $inputs = Arr::only($this->request, ['name', 'faculty_id']);
         $this->department = Department::query()->create($inputs);
         if (empty($this->department)) {
             return $this->buildResponse('failed in creating Department', false, null);
@@ -45,6 +45,7 @@ class CreateDepartment
     {
         $this->validate($this->request, [
             'name' => ['required', 'string', 'max:255'],
+            'faculty_id' => ['required', 'string', 'exists:faculties,id'],
         ]);
 
         return $this;

@@ -1,19 +1,29 @@
 <?php
-
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
 use Transave\ScolaCvManagement\Http\Models\Specialization;
-use Orchestra\Testbench\TestCase;
+use Transave\ScolaCvManagement\Tests\TestCase;
+
 
 class SpecializationModelTest extends TestCase
 {
+    private $specialization;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->specialization = Specialization::factory()->create();
     }
 
-    public function test_can_check_if_Specialization_model_exists()
+    /** @test */
+    public function specialization_model_can_be_initiated_with_factory()
     {
-        $this->assertTrue(class_exists(Specialization::class), 'Specialization model does not exist.');
+        $this->assertTrue($this->specialization instanceof Specialization);
+    }
+
+    /** @test */
+    public function specialization_table_exists_in_database()
+    {
+        $this->assertModelExists($this->specialization);
     }
 }

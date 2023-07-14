@@ -42,7 +42,7 @@ class CreateUserAccount
 
     private function createUser()
     {
-        $inputs = Arr::only($this->request, ['firstName', 'user_type', 'password', 'lastName', 'faculty_id', 'department_id', 'email']);
+        $inputs = Arr::only($this->request, ['first_name', 'user_type', 'password', 'last_name', 'faculty_id', 'department_id', 'email']);
         $this->user = User::query()->create($inputs);
         if (empty($this->user)) {
             return $this->buildResponse('failed in creating new user', false, null);
@@ -53,8 +53,8 @@ class CreateUserAccount
     public function validateRequest(): self
     {
         $this->validate($this->request, [
-            'firstName' => ['required', 'string', 'max:255'],
-            'lastName' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'faculty_id' => ['required', 'string', 'exists:faculty, id'],
             'department_id' => ['required', 'string', 'exists:department, id'],
             'email' => ['required', 'string', 'unique:users', 'email'],

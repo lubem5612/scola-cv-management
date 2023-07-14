@@ -2,18 +2,28 @@
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
 use Transave\ScolaCvManagement\Http\Models\WorkExperience;
-use Orchestra\Testbench\TestCase;
+use Transave\ScolaCvManagement\Tests\TestCase;
 
 
 class WorkExperienceModelTest extends TestCase
 {
+    private $workExperience;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->workExperience = WorkExperience::factory()->create();
     }
 
-    public function test_can_check_if_WorkExperience_model_exists()
+    /** @test */
+    public function workExperience_model_can_be_initiated_with_factory()
     {
-        $this->assertTrue(class_exists(WorkExperience::class), 'WorkExperience model does not exist.');
+        $this->assertTrue($this->workExperience instanceof WorkExperience);
+    }
+
+    /** @test */
+    public function workExperience_table_exists_in_database()
+    {
+        $this->assertModelExists($this->workExperience);
     }
 }

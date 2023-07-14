@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-class UpdateDepartment
+class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           UpdateDepartment
 {
     public function handle(Request $request)
     {
         $validator = Validator::make($request->all(), [
 
-            'name' => ['required', 'string', 'max:255']
+            'name' => ['required', 'string', 'max:255'],
+            'faculty_id' => ['required', 'string', 'exists:faculties, id'],
         ]);
 
         if ($validator->fails()) {
@@ -26,7 +27,8 @@ class UpdateDepartment
         if ($validator->passes()) {
             $update = Department::query()->where('id', $request->id)
                 ->update([
-                    'name' => $request->name
+                    'name' => $request->name,
+                    'faculty_id' => $request->faculty_id
                 ]);
             return response()->json([
                 'Status' => 200,

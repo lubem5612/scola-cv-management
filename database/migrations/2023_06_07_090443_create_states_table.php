@@ -18,6 +18,7 @@ class CreateStatesTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('capital', 100)->nullable()->index();
+            $table->foreignId('country_id')->nullable()->constrained('countries')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -61,8 +61,8 @@ class CreateAccount
     public function handle(): self
     {
         $this->validate($this->request, [
-            'firstName' => ['required', 'string', 'max:255'],
-            'lastName' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'faculty_id' => ['required', 'string', 'max:255'],
             'department_id' => ['required', 'string'],
             'email' => ['required', 'string', 'unique:user', 'email'],

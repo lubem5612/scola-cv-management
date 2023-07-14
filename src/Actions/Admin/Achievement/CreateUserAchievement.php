@@ -31,7 +31,7 @@ class CreateUserAchievement
 
     private function createAchievement()
     {
-        $inputs = Arr::only($this->request, ['achievementName', 'dateAchieved', 'user_id', 'description']);
+        $inputs = Arr::only($this->request, ['cv_id', 'title', 'date_achieved', 'user_id', 'description']);
         $this->achievement = Achievement::query()->create($inputs);
         if (empty($this->achievement)) {
             return $this->buildResponse('failed in creating Achievement', false, null);
@@ -42,9 +42,10 @@ class CreateUserAchievement
     public function validateRequest(): self
     {
         $this->validate($this->request, [
-            'achievementName' => ['required', 'string', 'max:255'],
-            'dateAchieved' => ['required', 'string', 'max:255'],
-            'users_id' => ['required', 'string', 'exist:users'],
+            'cv_id' => ['required', 'string', 'max:255', 'exists:cvs,id'],
+            'title' => ['required', 'string', 'max:255'],
+            'date_achieved' => ['required', 'string', 'max:255'],
+            'user_id' => ['required', 'string', 'exist:users,id'],
             'description' => ['required', 'string', 'max:255'],
 
         ]);

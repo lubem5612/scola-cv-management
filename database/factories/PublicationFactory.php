@@ -3,8 +3,9 @@
 namespace Transave\ScolaCvManagement\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Transave\ScolaCvManagement\Http\Models\CV;
 use Transave\ScolaCvManagement\Http\Models\Publication;
-use Transave\ScolaCvManagement\Http\Models\User;
+
 
 class PublicationFactory extends Factory
 {
@@ -24,8 +25,11 @@ class PublicationFactory extends Factory
     {
 
         return [
-            'user_id' => config('scolacv.auth_model')::factory(),
-            'publication' => $this->faker->sentence,
+            'cv_id' => CV::factory(),
+            'short_description' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+            'link' => $this->faker->sentence,
+
         ];
     }
 }

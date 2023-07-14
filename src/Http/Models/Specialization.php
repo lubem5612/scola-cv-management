@@ -14,7 +14,7 @@ class Specialization extends Model
 
     protected $guarded = ['id'];
 
-    protected $table = 'specialization';
+    protected $table = 'specializations';
 
     public function cv() : BelongsTo
     {

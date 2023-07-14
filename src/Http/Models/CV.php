@@ -4,7 +4,7 @@ namespace Transave\ScolaCvManagement\Http\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Transave\ScolaCvManagement\database\factories\CVFactory;
+use Transave\ScolaCvManagement\Database\Factories\CVFactory;
 use Transave\ScolaCvManagement\Helpers\UUIDHelper;
 
 

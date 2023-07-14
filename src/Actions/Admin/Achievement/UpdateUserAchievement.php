@@ -11,8 +11,9 @@ class UpdateUserAchievement
     public function handle(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'achievementName' => ['string', 'max:255'],
-            'dateAchieved' => ['string', 'max:255'],
+            'cv_id' => ['string', 'max:255', 'exists:cvs, id'],
+            'title' => ['string', 'max:255'],
+            'date_achieved' => ['string', 'max:255'],
             'user_id' => ['string', 'exist:users, id'],
             'description' => ['string', 'max:255'],
         ]);
@@ -28,9 +29,10 @@ class UpdateUserAchievement
         if ($validator->passes()) {
             $update = Achievement::query()->where('id', $request->id)
                 ->update([
-            'achievementName' => $request->achievementName,
-            'dateAchieved' => $request->dateAchieved,
+            'cv_id' => $request->cv_id,
+            'title' => $request->title,
             'user_id' => $request->user_id,
+            'date_achieved' => $request->date_achieved,
             'description' => $request->description,
                 ]);
 

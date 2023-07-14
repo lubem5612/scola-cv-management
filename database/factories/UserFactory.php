@@ -3,8 +3,11 @@ namespace Transave\ScolaCvManagement\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Transave\ScolaCvManagement\Http\Models\Country;
 use Transave\ScolaCvManagement\Http\Models\Department;
 use Transave\ScolaCvManagement\Http\Models\Faculty;
+use Transave\ScolaCvManagement\Http\Models\Lg;
+use Transave\ScolaCvManagement\Http\Models\Qualification;
 use Transave\ScolaCvManagement\Http\Models\School;
 use Transave\ScolaCvManagement\Http\Models\User;
 
@@ -28,9 +31,8 @@ class UserFactory extends Factory
     {
 
         return [
-            'firstName' => $this->faker->name,
-            'lastName' => $this->faker->name,
-            'middleName'=> $this->faker->name,
+            'first_name' => $this->faker->name,
+            'last_name' => $this->faker->name,
             'school_id' => School::factory(),
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
@@ -38,7 +40,6 @@ class UserFactory extends Factory
             'department_id' => Department::factory(),
             'faculty_id' => Faculty::factory(),
             'state_of_origin' => $this->faker->sentence(20),
-            'lga'=> $this->faker->sentence(20),
             'state_of_resident'=> $this->faker->sentence(20),
             'residential_address'=> $this->faker->sentence(20),
             'permanent_address'=> $this->faker->sentence(20),
@@ -50,6 +51,12 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'user_type' => $this->faker->randomElement(config('scolacv.user_type')),
+            'qualification_id' => Qualification::factory(),
+            'country_of_origin_id' => Country::factory(),
+            'country_of_residence_id' => Country::factory(),
+            'lg_of_residence_id' =>  Lg::factory(),
+            'lg_of_origin_id' => Lg::factory(),
+
         ];
     }
 
