@@ -5,16 +5,17 @@ namespace Transave\ScolaCvManagement\Actions\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
-use Transave\ScolaCvManagement\Helpers\FileUploadHelper;
+use Transave\ScolaCvManagement\Actions\Action;
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
+use Transave\ScolaCvManagement\Helpers\UploadHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
 use Transave\ScolaCvManagement\Http\Models\User;
 use Transave\ScolaCvManagement\Http\Notifications\WelcomeNotification;
 
 class CreateAccount
 {
+    use ValidationHelper, ResponseHelper, UploadHelper;
 
-    use ValidationHelper, ResponseHelper;
     private array $request;
     private array $validatedInput;
     private $user;
@@ -71,7 +72,7 @@ class CreateAccount
     private function uploadPhoto()
     {
         if (request()->hasFile('picture')) {
-            $response = FileUploadHelper::UploadFile(request()->file('picture'), 'cv-management/profiles');
+            $response = $this->fileUpload(request()->file('picture'), 'cv-management/profiles');
             if ($response['success']) {
                 $this->validatedInput['picture'] = $response['upload_url'];
             }

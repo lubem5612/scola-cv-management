@@ -5,4 +5,5 @@ use Transave\ScolaCvManagement\Http\Controllers\Auth\AuthenticationController;
 
 Route::as('cv.')->group(function () {
     Route::post('register', [AuthenticationController::class, 'register'])->name('register');
+    Route::post('login', [AuthenticationController::class, 'login'])->name('login');
 });
