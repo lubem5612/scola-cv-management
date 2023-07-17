@@ -23,7 +23,7 @@ class LoginAccount
         try {
             return $this
                 ->validateLoginData()
-                ->username()
+                ->setUsername()
                 ->authenticateUser();
         }catch (\Exception $e) {
             return $this->sendServerError($e);
@@ -40,7 +40,7 @@ class LoginAccount
         return $this->sendError('authentication failed', [], 401);
     }
 
-    private function username()
+    private function setUsername()
     {
         if(filter_var($this->data['email'], FILTER_VALIDATE_EMAIL)) {
             $this->username = 'email';
@@ -53,11 +53,11 @@ class LoginAccount
 
     private function validateLoginData()
     {
-        $validator = $this->validate($this->data, [
+        $this->validatedInput = $this->validate($this->data, [
             'email' => ['required', 'string', 'max:50'],
-            'password' => ['required', 'string']
+            'password' => ['required', 'string', 'max:60']
         ]);
-        $this->validatedInput = $validator;
+
         return $this;
     }
 }

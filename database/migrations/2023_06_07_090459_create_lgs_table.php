@@ -16,7 +16,7 @@ class CreateLgsTable extends Migration
     {
         Schema::create('lgs', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->foreignId('state_id')->nullable()->constrained('states')->cascadeOnDelete();
             $table->timestamps();
         });

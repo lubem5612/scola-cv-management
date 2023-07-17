@@ -4,7 +4,7 @@ namespace Transave\ScolaCvManagement\Database\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Transave\ScolaCvManagement\Http\Models\CvUpload;
+use Transave\ScolaCvManagement\Http\Models\CV;
 
 class CVFactory extends Factory
 {
@@ -13,7 +13,7 @@ class CVFactory extends Factory
      *
      * @var string
      */
-    protected $model = CvUpload::class;
+    protected $model = CV::class;
 
     /**
      * Define the model's default state.
@@ -24,7 +24,7 @@ class CVFactory extends Factory
     {
         return [
             'user_id' => config('scolacv.auth_model')::factory(),
-            'name' => $this->faker->name
+            'title' => $this->faker->name
         ];
     }
 }

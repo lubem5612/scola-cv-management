@@ -20,8 +20,8 @@ class CreateRefereesTable extends Migration
             $table->string('name')->index();
             $table->string('address')->index();
             $table->string('place_of_work')->nullable()->index();
-            $table->string('contact', 20);
-            $table->string('relationship')->nullable();
+            $table->string('contact', 20)->index();
+            $table->string('relationship')->nullable()->index();
             $table->timestamps();
 
         });

@@ -24,6 +24,11 @@ class Training extends Model
         return $this->belongsTo(CV::class);
     }
 
+    public function country() : BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     protected static function newFactory()
     {
         return TrainingFactory::new();

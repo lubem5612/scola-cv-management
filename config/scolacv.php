@@ -15,7 +15,20 @@ return [
         'middleware' => 'api'
     ],
 
+    'storage_prefix' => env('STORAGE_PREFIX', 'cv'),
+
     'azure' => [
-        'storage_url' => 'https://'.env('AZURE_STORAGE_NAME').'.blob.core.windows.net/'.env('AZURE_STORAGE_CONTAINER').'/',
+        'storage_url' => 'https://'.env('AZURE_STORAGE_NAME').'.blob.core.windows.net/'.env('AZURE_STORAGE_CONTAINER'),
+        'id' => '.windows.net',
     ],
+
+    's3' => [
+        'storage_url' => 'https://'.env('AWS_BUCKET').'.s3.'.env('AWS_DEFAULT_REGION').'.amazonaws.com',
+        'id' => 'amazonaws.com',
+    ],
+
+    'local' => [
+        'storage_url' => '',
+        'id' => '',
+    ]
 ];

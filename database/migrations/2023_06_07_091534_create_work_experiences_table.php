@@ -18,7 +18,7 @@ class CreateWorkExperiencesTable extends Migration
             $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
             $table->string('company')->index();
             $table->string('position', 150)->index();
-            $table->text('responsibilities');
+            $table->text('responsibilities')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamps();

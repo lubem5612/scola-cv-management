@@ -21,6 +21,16 @@ class EducationalQualification extends Model
         return $this->belongsTo(CV::class);
     }
 
+    public function qualification() : BelongsTo
+    {
+        return $this->belongsTo(Qualification::class);
+    }
+
+    public function country() : BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     protected static function newFactory()
     {
         return EducationalQualificationFactory::new();
