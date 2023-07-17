@@ -24,7 +24,7 @@ class CVFactory extends Factory
     {
         return [
             'user_id' => config('scolacv.auth_model')::factory(),
-            'title' => $this->faker->title
+            'title' => $this->faker->name
         ];
     }
 }

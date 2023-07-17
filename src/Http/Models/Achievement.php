@@ -22,6 +22,11 @@ class Achievement extends Model
         return $this->belongsTo(config('scolacv.auth_model'));
     }
 
+    public function cv() : BelongsTo
+    {
+        return $this->belongsTo(CV::class);
+    }
+
     protected static function newFactory()
     {
         return AchievementFactory::new();

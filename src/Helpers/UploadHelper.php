@@ -4,37 +4,36 @@
 namespace Transave\ScolaCvManagement\Helpers;
 
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Http\UploadedFile;
-use function Symfony\Component\ErrorHandler\Exception\setTraceFromThrowable;
 
-trait UploadHelper
+class UploadHelper
 {
     private $uploadedFileSize = 0;
     private $uploadedFilePath = '';
     private $uploadedFileExtension = '';
-    private UploadedFile $uploadedFile;
-    private $disks = [];
-    private $isUploadSuccessful = false;
+    private $disk = '';
+    private $storageConfig = [];
+    private $fileRealPath = '';
+    private $isSuccessful = false;
     private $uploadedFileError = [];
     private $uploadedFileMessage = '';
 
-    public function fileUpload(UploadedFile $uploadedFile, $folder, $disk='azure')
+    public function uploadFile(UploadedFile $uploadedFile, $folder, $disk='azure')
     {
         try{
+            $this->disk = $disk;
+            $this->setStorageConfig();
             $extension = $uploadedFile->getClientOriginalExtension();
             $filename = uniqid().'.'.$extension;
 
             $path = $uploadedFile->storePubliclyAs($folder, $filename, $disk);
             if ($path) {
-                if (env('AZURE_STORAGE_PREFIX')) {
-                    $data = config('scolacv.azure.storage_url').env('AZURE_STORAGE_PREFIX').'/'.$path;
-                }else {
-                    $data = config('scolacv.azure.storage_url').$path;
-                }
+                $this->uploadedFilePath = $this->storageConfig['storage_url'].'/'.config('scolacv.storage_prefix').'/'.$path;
                 $this->uploadedFileSize = $uploadedFile->getSize();
                 $this->uploadedFileExtension = $extension;
-                $this->uploadedFilePath = $data;
-                $this->isUploadSuccessful = true;
+                $this->isSuccessful = true;
                 $this->uploadedFileMessage = "upload successful";
             }
         }catch (\Exception $exception) {
@@ -44,10 +43,62 @@ trait UploadHelper
         return $this->response();
     }
 
+    public function deleteFile($file_url, $disk='azure')
+    {
+        try {
+            $this->setRealPath($file_url);
+            Storage::disk($disk)->delete($this->fileRealPath);
+            $this->isSuccessful = true;
+            $this->uploadedFileMessage = "deleted successfully";
+        }catch (\Exception $exception) {
+            $this->uploadedFileMessage= $exception->getMessage();
+            $this->uploadedFileError = $exception->getTrace();
+        }
+        return $this->response();
+    }
+
+    public function uploadOrReplaceFile(UploadedFile $uploadedFile, $folder, $model, $column, $disk='azure')
+    {
+        try{
+            if($model->$column) {
+                $deleteAction = $this->deleteFile($model->$column, $disk);
+                if (!$deleteAction["success"]) {
+                    $this->uploadedFileMessage = "unable to delete existing file";
+                    $this->isSuccessful = false;
+                    return $this->response();
+                }
+            }
+
+            $uploadAction = $this->uploadFile($uploadedFile, $folder, $disk);
+            if (!$uploadAction['success']) {
+                $this->uploadedFileMessage = "unable to upload new file";
+                $this->isSuccessful = false;
+                return $this->response();
+            }
+            $this->uploadedFileMessage = $model->$column? "file replaced successfully" : "file upload successful";
+
+        }catch (\Exception $exception) {
+            $this->uploadedFileMessage= $exception->getMessage();
+            $this->uploadedFileError = $exception->getTrace();
+        }
+        return $this->response();
+    }
+
+    private function setRealPath($url)
+    {
+        $prefix = config('scolacv.storage_prefix').'/';
+        $this->fileRealPath = Str::after($url, $prefix);
+    }
+
+    private function setStorageConfig()
+    {
+        $this->storageConfig = config("scolacv.$this->disk");
+    }
+
     private function response()
     {
         return [
-            "success"       => $this->isUploadSuccessful,
+            "success"       => $this->isSuccessful,
             "upload_url"    => $this->uploadedFilePath,
             "mime_type"     => $this->uploadedFileExtension,
             "size"          => $this->uploadedFileSize,

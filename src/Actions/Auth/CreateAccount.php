@@ -5,7 +5,6 @@ namespace Transave\ScolaCvManagement\Actions\Auth;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
-use Transave\ScolaCvManagement\Actions\Action;
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\UploadHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
@@ -14,15 +13,16 @@ use Transave\ScolaCvManagement\Http\Notifications\WelcomeNotification;
 
 class CreateAccount
 {
-    use ValidationHelper, ResponseHelper, UploadHelper;
+    use ValidationHelper, ResponseHelper;
 
     private array $request;
     private array $validatedInput;
-    private $user;
+    private $user, $uploader;
 
     public function __construct(array $request)
     {
         $this->request = $request;
+        $this->uploader = new UploadHelper();
     }
 
     public function execute()
@@ -33,6 +33,7 @@ class CreateAccount
                 ->setUserPassword()
                 ->uploadPhoto()
                 ->setVerificationToken()
+                ->setUserType()
                 ->createUser()
                 ->sendNotification()
                 ->sendSuccess($this->user, 'account created successfully');
@@ -72,7 +73,7 @@ class CreateAccount
     private function uploadPhoto()
     {
         if (request()->hasFile('picture')) {
-            $response = $this->fileUpload(request()->file('picture'), 'cv-management/profiles');
+            $response = $this->uploader->uploadFile(request()->file('picture'), 'cv-management/profiles', 'azure');
             if ($response['success']) {
                 $this->validatedInput['picture'] = $response['upload_url'];
             }

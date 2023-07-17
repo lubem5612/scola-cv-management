@@ -13,7 +13,7 @@ trait SearchHelper
     use ResponseHelper;
     private $output, $queryBuilder, $relationshipArray, $searchParam, $perPage, $startAt, $endAt, $id;
 
-    public function __construct(Model $model, array $relationshipArray=[], $id=null)
+    public function __construct($model, array $relationshipArray=[], $id=null)
     {
         $this->relationshipArray = $relationshipArray;
         $this->queryBuilder = $model::query();
@@ -30,11 +30,11 @@ trait SearchHelper
             return
                 $this
                     ->modelHasRelationship()
-                    ->querySingleResource()
                     ->handleTimeStampQuery()
                     ->searchTerms()
                     ->groupedBy()
                     ->handlePagination()
+                    ->querySingleResource()
                     ->sendSuccess($this->output, 'query returned Ok');
 
         }catch (\Exception $ex) {
@@ -68,8 +68,7 @@ trait SearchHelper
     private function querySingleResource()
     {
         if (!is_null($this->id) || isset($this->id)) {
-            $result = $this->queryBuilder->find($this->id);
-            return $this->sendSuccess($result, 'result returned Ok');
+            $this->output = $this->queryBuilder->find($this->id);
         }
         return $this;
     }
