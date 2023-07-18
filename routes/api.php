@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Transave\ScolaCvManagement\Http\Controllers\Auth\AuthenticationController;
 use Transave\ScolaCvManagement\Http\Controllers\CredentialController;
 use Transave\ScolaCvManagement\Http\Controllers\ResourceController;
+use Transave\ScolaCvManagement\Http\Models\Publication;
 
 Route::as('cv.')->group(function () {
     Route::post('register', [AuthenticationController::class, 'register'])->name('register');
@@ -14,19 +15,20 @@ Route::as('cv.')->group(function () {
     Route::any('logout', [ AuthenticationController::class, 'logout'])->name('logout');
 });
 
+
+
+Route::as('cv.')->group(function () {
+    Route::post('store', [Publication::class, 'store'])->name('store');
+    Route::post('destroy', [Publication::class, 'destroy'])->name('destroy');
+    Route::get('show', [ Publication::class, 'show'])->name('show');
+});
+
+
+
 Route::as('cv.')->prefix('credentials')->group(function() {
     Route::get('/', [ CredentialController::class, 'index'])->name('index');
     Route::post('/', [ CredentialController::class, 'store'])->name('store');
     Route::get('/{id}', [ CredentialController::class, 'show'])->name('show');
     Route::match(['POST', 'PUT', 'PATCH'],'/{id}', [ CredentialController::class, 'update'])->name('update');
     Route::delete('/{id}', [ CredentialController::class, 'destroy'])->name('delete');
-});
-
-
-Route::as('cv.')->group(function () {
-    Route::get('{endpoint}', [ResourceController::class, 'index'])->name('index');
-    Route::post('{endpoint}', [ResourceController::class, 'store'])->name('store');
-    Route::get('{endpoint}/{id}', [ResourceController::class, 'show'])->name('show');
-    Route::match(['POST', 'PATCH', 'PUT'],'{endpoint}/{id}', [ResourceController::class, 'update'])->name('update');
-    Route::delete('{endpoint}/{id}', [ResourceController::class, 'destroy'])->name('delete');
 });

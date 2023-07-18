@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Transave\ScolaCvManagement\Http\Controllers;
 
 

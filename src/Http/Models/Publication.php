@@ -12,9 +12,19 @@ class Publication extends Model
 {
     use HasFactory, UUIDHelper;
 
-    protected $guarded = [ 'id' ];
+    protected $fillable = [
+        'firstName',
+        'lastName',
+        'faculty_id',
+        'department_id',
+        'email',
+        'password',
+        'id',
+    ];
 
     protected $table = 'publications';
+
+
 
     public function cv() : BelongsTo
     {
