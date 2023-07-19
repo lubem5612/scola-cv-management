@@ -39,7 +39,7 @@ class PublicationController extends Controller
     }
 
 
-    public function destroy($id)
+    public function delete($id)
     {
         return (new DeletePublication(['id' => $id]))->execute();
     }

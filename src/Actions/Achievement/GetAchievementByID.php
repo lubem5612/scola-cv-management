@@ -6,12 +6,14 @@ use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
 use Transave\ScolaCvManagement\Http\Models\Achievement;
 
-class DeleteAchievement
+class GetAchievementByID
 {
-    use ResponseHelper, ValidationHelper;
+    use ValidationHelper, ResponseHelper;
+
     private $request;
 
-    public function __construct(array $request)
+
+    public function __construct($request)
     {
         $this->request = $request;
     }
@@ -22,30 +24,25 @@ class DeleteAchievement
             return $this
                 ->validateRequest()
                 ->getAchievement()
-                ->deleteAchievement();
-        }catch (\Exception $e) {
+                ->sendSuccess($this->achievement, 'Achievement Fetched');
+
+        } catch (\Exception $e) {
             return $this->sendServerError($e);
         }
     }
 
-    private function deleteAchievement()
+    private function getAchievement(): self
     {
-        $this->achievement->delete();
-        return $this->sendSuccess(null, 'achievement deleted successfully');
+        $this->achievement = Achievement::query()->with('cv')->find($this->validatedInput['id']);
+        return $this;
+
     }
 
-    private function getAchievement() :self
+    private function validateRequest(): self
     {
-        $this->achievement = Achievement::query()->find($this->input['id']);
-        return  $this;
-    }
-
-    private function validateRequest() : self
-    {
-       $this->input = $this->validate($this->request, [
+        $this->validatedInput = $this->validate($this->request, [
             'id' => 'required|exists:achievements,id'
         ]);
         return $this;
     }
-
 }

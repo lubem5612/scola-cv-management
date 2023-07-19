@@ -29,7 +29,7 @@ class SearchPublicationTest extends TestCase
     }
 
     /** @test */
-    public function can_search_questions_via_action_with_relationship()
+    public function can_search_publication_via_action_with_relationship()
     {
         $response = (new SearchPublication(Publication::class, ['CV']))->execute();
         $array = json_decode($response->getContent(), true);
@@ -40,8 +40,8 @@ class SearchPublicationTest extends TestCase
     /** @test */
     public function can_search_single_publication_via_action_with_relationship()
     {
-        $question = Publication::query()->inRandomOrder()->first();
-        $response = (new GetPublicationByID(['id' => $question->id]))->execute();
+        $publication = Publication::query()->inRandomOrder()->first();
+        $response = (new GetPublicationByID(['id' => $publication->id]))->execute();
         $array = json_decode($response->getContent(), true);
         $this->assertEquals(true, $array['success']);
         $this->assertNotNull($array['data']);
@@ -52,8 +52,8 @@ class SearchPublicationTest extends TestCase
     /** @test */
     public function can_search_user_publications_via_action_with_relationship()
     {
-        $question = Publication::query()->inRandomOrder()->first();
-        $response = (new SingleUserPublicationList(['cv_id' => $question->cv_id]))->execute();
+        $publication = Publication::query()->inRandomOrder()->first();
+        $response = (new SingleUserPublicationList(['cv_id' => $publication->cv_id]))->execute();
         $array = json_decode($response->getContent(), true);
         $this->assertEquals(true, $array['success']);
         $this->assertNotNull($array['data']);

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Transave\ScolaCvManagement\Http\Controllers\AchievementController;
 use Transave\ScolaCvManagement\Http\Controllers\Auth\AuthenticationController;
 use Transave\ScolaCvManagement\Http\Controllers\CredentialController;
 use Transave\ScolaCvManagement\Http\Controllers\PublicationController;
@@ -20,6 +21,15 @@ Route::as('cv.')->prefix('publications')->group(function() {
     Route::post('store', [PublicationController::class, 'store'])->name('store');
     Route::get('/{id}', [ PublicationController::class, 'show'])->name('show');
     Route::match(['POST', 'PUT', 'PATCH'],'/{id}', [ PublicationController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ PublicationController::class, 'delete'])->name('delete');
+});
+
+
+Route::as('cv.')->prefix('achievements')->group(function() {
+    Route::post('store', [AchievementController::class, 'store'])->name('store');
+    Route::get('/{id}', [ AchievementController::class, 'show'])->name('show');
+    Route::match(['POST', 'PUT', 'PATCH'],'/{id}', [ AchievementController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ AchievementController::class, 'delete'])->name('delete');
 });
 
 
