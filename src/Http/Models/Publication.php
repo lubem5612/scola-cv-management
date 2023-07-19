@@ -12,14 +12,8 @@ class Publication extends Model
 {
     use HasFactory, UUIDHelper;
 
-    protected $fillable = [
-        'firstName',
-        'lastName',
-        'faculty_id',
-        'department_id',
-        'email',
-        'password',
-        'id',
+    protected $guarded = [
+        "id"
     ];
 
     protected $table = 'publications';

@@ -52,7 +52,7 @@ class UserFactory extends Factory
             'no_of_children'=> $this->faker->randomDigit(),
             'gender'=> $this->faker->word,
             'phone'=> $this->faker->phoneNumber,
-            'picture' => UploadedFile::fake()->image('photo.jpg'),
+            'picture' => $this->faker->image,
             "token" => Str::random(10),
             'status' => $this->faker->randomElement(['active', 'inactive', 'suspended']),
         ];

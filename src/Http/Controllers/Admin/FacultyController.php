@@ -29,7 +29,7 @@ class FacultyController extends Controller
     // Delete Faculty
     public function delFaculty(Request $request, DeleteFaculty $deleteFaculty)
     {
-        $delete = $deleteFaculty->handle($request);
+        $delete = $deleteFaculty->$request->id;
         return $delete;
     }
 

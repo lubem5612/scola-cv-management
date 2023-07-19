@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Transave\ScolaCvManagement\Http\Controllers\Auth\AuthenticationController;
 use Transave\ScolaCvManagement\Http\Controllers\CredentialController;
-use Transave\ScolaCvManagement\Http\Controllers\ResourceController;
-use Transave\ScolaCvManagement\Http\Models\Publication;
+use Transave\ScolaCvManagement\Http\Controllers\PublicationController;
 
 Route::as('cv.')->group(function () {
     Route::post('register', [AuthenticationController::class, 'register'])->name('register');
@@ -17,12 +16,11 @@ Route::as('cv.')->group(function () {
 
 
 
-Route::as('cv.')->group(function () {
-    Route::post('store', [Publication::class, 'store'])->name('store');
-    Route::post('destroy', [Publication::class, 'destroy'])->name('destroy');
-    Route::get('show', [ Publication::class, 'show'])->name('show');
+Route::as('cv.')->prefix('publications')->group(function() {
+    Route::post('store', [PublicationController::class, 'store'])->name('store');
+    Route::get('/{id}', [ PublicationController::class, 'show'])->name('show');
+    Route::match(['POST', 'PUT', 'PATCH'],'/{id}', [ PublicationController::class, 'update'])->name('update');
 });
-
 
 
 Route::as('cv.')->prefix('credentials')->group(function() {

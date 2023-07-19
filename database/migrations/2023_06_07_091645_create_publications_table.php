@@ -17,7 +17,7 @@ class CreatePublicationsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
             $table->string('short_description')->nullable()->index();
-            $table->text('description')->index();
+            $table->text('description')->nullable()->index();
             $table->string('link', 700)->nullable()->index();
             $table->timestamps();
         });

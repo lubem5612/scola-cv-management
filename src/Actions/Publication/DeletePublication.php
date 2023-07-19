@@ -1,4 +1,5 @@
 <?php
+
 namespace Transave\ScolaCvManagement\Actions\Publication;
 
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
@@ -8,8 +9,7 @@ use Transave\ScolaCvManagement\Http\Models\Publication;
 class DeletePublication
 {
     use ResponseHelper, ValidationHelper;
-    private Publication $publication;
-    private $request, $validatedInput;
+    private $request;
 
     public function __construct(array $request)
     {
@@ -21,35 +21,31 @@ class DeletePublication
         try {
             return $this
                 ->validateRequest()
+                ->getPublication()
                 ->deletePublication();
         }catch (\Exception $e) {
             return $this->sendServerError($e);
         }
     }
 
-
     private function deletePublication()
     {
-        $publication = Publication::query()->find($this->validatedInput['publication_id']);
-
-        if ($publication  === null) {
-            return $this->sendError(null, 'publication not found', '404');
-        }
-
-        if ($publication->delete() === false) {
-            return $this->sendError(null, 'Error Occur, try Again', '400');
-        }
-
-        $publication->delete();
+        $this->publication->delete();
         return $this->sendSuccess(null, 'publication deleted successfully');
     }
 
-
-    private function validateRequest()
+    private function getPublication() :self
     {
-        $this->validatedInput = $this->validate($this->request, [
-            'publication_id' => 'required|exists:publications,id'
+        $this->publication = Publication::query()->find($this->request['id']);
+        return  $this;
+    }
+
+    private function validateRequest() : self
+    {
+        $this->validate($this->request, [
+            'id' => 'required|exists:publications,id'
         ]);
         return $this;
     }
+
 }
