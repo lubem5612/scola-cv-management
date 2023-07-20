@@ -4,7 +4,7 @@ namespace Transave\ScolaCvManagement\Tests\Feature\Achievement;
 
 use Laravel\Sanctum\Sanctum;
 use Transave\ScolaCvManagement\Actions\Achievement\GetAchievementByID;
-use Transave\ScolaCvManagement\Actions\Achievement\GeneralAchievementList;
+use Transave\ScolaCvManagement\Actions\Achievement\AllUsersAchievementList;
 use Transave\ScolaCvManagement\Actions\Achievement\SearchAchievement;
 use Transave\ScolaCvManagement\Actions\Achievement\SingleUserAchievementList;
 use Transave\ScolaCvManagement\Http\Models\Achievement;

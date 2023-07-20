@@ -4,7 +4,7 @@ namespace Transave\ScolaCvManagement\Tests\Feature\Publication;
 
 use Laravel\Sanctum\Sanctum;
 use Transave\ScolaCvManagement\Actions\Publication\GetPublicationByID;
-use Transave\ScolaCvManagement\Actions\Publication\GeneralPublicationList;
+use Transave\ScolaCvManagement\Actions\Publication\AllUsersPublicationList;
 use Transave\ScolaCvManagement\Actions\Publication\SearchPublication;
 use Transave\ScolaCvManagement\Actions\Publication\SingleUserPublicationList;
 use Transave\ScolaCvManagement\Http\Models\Publication;

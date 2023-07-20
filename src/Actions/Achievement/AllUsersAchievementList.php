@@ -6,7 +6,7 @@ use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
 use Transave\ScolaCvManagement\Http\Models\Achievement;
 
-class GeneralAchievementList
+class AllUsersAchievementList
 {
     use ValidationHelper, ResponseHelper;
 

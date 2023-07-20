@@ -1,10 +1,10 @@
 <?php
-namespace Transave\ScolaCvManagement\Actions\Achievement;
+namespace Transave\ScolaCvManagement\Actions\Specialization;
 
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\SearchHelper;
 
-class SearchAchievement
+class SearchSpecialization
 {
     use SearchHelper, ResponseHelper;
 
@@ -12,8 +12,8 @@ class SearchAchievement
     {
         $search = $this->searchParam;
         $this->queryBuilder
-            ->where('title', "like", "%$search%")
-            ->orwhere('date_achieved', "like", "%$search%")
+            ->where('description', "like", "%$search%")
+            ->orwhere('name', "like", "%$search%")
             ->orWhereHas('cv', function ($query2) use ($search) {
                 $query2->where('title', 'like', "%$search%");
             });

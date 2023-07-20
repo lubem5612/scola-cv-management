@@ -19,8 +19,8 @@ class CreateWorkExperiencesTable extends Migration
             $table->string('company')->index();
             $table->string('position', 150)->index();
             $table->text('responsibilities')->nullable();
-            $table->timestamp('start_date')->nullable();
-            $table->timestamp('end_date')->nullable();
+            $table->timestamp('start_date')->index()->nullable();
+            $table->timestamp('end_date')->index()->nullable();
             $table->timestamps();
 
         });

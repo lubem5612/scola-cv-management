@@ -6,7 +6,7 @@ use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
 use Transave\ScolaCvManagement\Http\Models\Publication;
 
-class GeneralPublicationList
+class AllUsersPublicationList
 {
     use ValidationHelper, ResponseHelper;
 
