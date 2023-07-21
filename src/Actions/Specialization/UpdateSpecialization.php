@@ -23,34 +23,23 @@ class UpdateSpecialization
             return $this
                 ->validateRequest()
                 ->getSpecialization()
-                ->editSpecialization();
-        } catch (\Exception $e) {
+                ->updateSpecialization();
+        }catch (\Exception $e) {
             return $this->sendServerError($e);
         }
     }
 
     private function getSpecialization()
     {
-        if ($this->validatedInput->fails()) {
-            return response()->json([
-                'status' => 400, 'data' => [], 'message' => $this->validatedInput->errors()
-            ]);
-        }
-
-        if($this->validatedInput->passes()) {
-            $this->specialization = Specialization::query()->where('id', $this->validatedInput['specialization_id']);
-            return $this;
-        }
-
-        return $this->sendError(null, 'unable to update specialization, try again!', '400');
+        $this->specialization = Specialization::query()->find($this->validatedInput['specialization_id']);
+        return $this;
     }
 
-    private function editSpecialization()
+    private function updateSpecialization()
     {
         $this->specialization->fill($this->validatedInput)->save();
-        return $this->sendSuccess($this->specialization->refresh(), 'Specialization updated successfully');
+        return $this->sendSuccess($this->specialization->refresh(), 'specialization updated successfully');
     }
-
 
     private function validateRequest()
     {

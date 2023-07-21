@@ -25,14 +25,4 @@ class GetReferees extends TestCase
         $this->assertEquals($array['data']['cv_id'], $referee->cv_id);
     }
 
-//
-//    /** @test */
-//    function can_get_all_referees()
-//    {
-//        $referee = Referee::all();
-//        $response = $this->json('GET', "/cv/referees/show}");
-//        $array = json_decode($response->getContent(), true);
-//        $this->assertEquals(true, $array['success']);
-//        $this->assertNotNull($array['data']);
-//    }
 }

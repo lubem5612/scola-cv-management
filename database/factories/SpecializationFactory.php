@@ -26,7 +26,7 @@ class SpecializationFactory extends Factory
 
         return [
             'cv_id' => CV::factory(),
-            'name' => $this->faker->sentence,
+            'name' => $this->faker->name,
             'description' => $this->faker->sentence,
         ];
     }

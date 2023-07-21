@@ -6,6 +6,8 @@ use Transave\ScolaCvManagement\Http\Controllers\Auth\AuthenticationController;
 use Transave\ScolaCvManagement\Http\Controllers\CredentialController;
 use Transave\ScolaCvManagement\Http\Controllers\PublicationController;
 use Transave\ScolaCvManagement\Http\Controllers\RefereeController;
+use Transave\ScolaCvManagement\Http\Controllers\SchoolController;
+use Transave\ScolaCvManagement\Http\Controllers\SpecializationController;
 use Transave\ScolaCvManagement\Http\Controllers\WorkExperienceController;
 
 Route::as('cv.')->group(function () {
@@ -42,6 +44,24 @@ Route::as('cv.')->prefix('work_experiences')->group(function() {
     Route::PATCH('update/{id}', [ WorkExperienceController::class, 'update'])->name('update');
     Route::delete('delete/{id}', [ WorkExperienceController::class, 'delete'])->name('delete');
 });
+
+Route::as('cv.')->prefix('specializations')->group(function() {
+    Route::get('/', [ SpecializationController::class, 'index'])->name('index');
+    Route::post('store', [ SpecializationController::class, 'store'])->name('store');
+    Route::get('show/{cv_id}', [ SpecializationController::class, 'show'])->name('show');
+    Route::PATCH('update/{id}', [ SpecializationController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [ SpecializationController::class, 'delete'])->name('delete');
+});
+
+
+Route::as('cv.')->prefix('schools')->group(function() {
+    Route::get('/', [ SchoolController::class, 'index'])->name('index');
+    Route::post('store', [ SchoolController::class, 'store'])->name('store');
+    Route::get('show', [ SchoolController::class, 'show'])->name('show');
+    Route::PATCH('update/{id}', [ SchoolController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [ SchoolController::class, 'delete'])->name('delete');
+});
+
 
 
 Route::as('cv.')->prefix('referees')->group(function() {

@@ -2,8 +2,6 @@
 
 namespace Transave\ScolaCvManagement\Actions\Specialization;
 
-
-use Illuminate\Support\Facades\Validator;
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
 use Transave\ScolaCvManagement\Http\Models\Specialization;
@@ -32,20 +30,13 @@ class CreateSpecialization
 
     private function registerSpecialization()
     {
-
-        if ($this->validator->fails()) {
-        return response()->json(['status' => 400, 'data' => [], 'message' => $this->validator->errors()
-        ]);
-    }
-        $input = $this->validator;
-        $this->specialization = Specialization::query()->create($input);
+        $this->specialization = Specialization::query()->create($this->validatedInput);
         return $this->sendSuccess($this->specialization, 'Specialization created successfully');
-
     }
 
     private function validateRequest()
     {
-        $this->validator = Validator::make($this->request, [
+        $this->validatedInput = $this->validate($this->request, [
             'cv_id' => ['required', 'string', 'exists:cvs,id'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255']
