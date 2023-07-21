@@ -1,7 +1,5 @@
 <?php
-
 namespace Transave\ScolaCvManagement\Actions\WorkExperience;
-
 
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
@@ -11,7 +9,7 @@ class UpdateWorkExperience
 {
     use ResponseHelper, ValidationHelper;
     private array $request;
-    private array $validatedInput;
+    private $validatedInput;
 
     public function __construct(array $request)
     {

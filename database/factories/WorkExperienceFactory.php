@@ -27,10 +27,10 @@ class WorkExperienceFactory extends Factory
         return [
             'cv_id' => CV::factory(),
             'responsibilities' => $this->faker->sentence,
-            'company_name' => $this->faker->company,
+            'company' => $this->faker->company,
+            'position'=> $this->faker->name,
             'start_date' => $this->faker->date(),
-            'end_date' => $this->faker->date(),
-            'created_at'=>$this->faker->dateTime(),
+            'end_date' => $this->faker->date()
         ];
     }
 }

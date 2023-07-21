@@ -14,9 +14,9 @@ class RefereeFactory extends Factory
     {
         return [
             'cv_id' => CV::factory(),
-            'name' => $this->faker->word,
+            'name' => $this->faker->name,
             'address' => $this->faker->sentence,
-            'place_of_work' => $this->faker->sentence,
+            'place_of_work' => $this->faker->country,
             'contact' => $this->faker->phoneNumber,
             'relationship' => $this->faker->word
         ];

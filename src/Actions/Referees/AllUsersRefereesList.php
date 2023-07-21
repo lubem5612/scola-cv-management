@@ -1,17 +1,15 @@
 <?php
 
-namespace Transave\ScolaCvManagement\Actions\Publication;
+namespace Transave\ScolaCvManagement\Actions\Referees;
 
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
-use Transave\ScolaCvManagement\Http\Models\Publication;
+use Transave\ScolaCvManagement\Http\Models\Referee;
 
-class AllUsersPublicationList
+class AllUsersRefereesList
 {
     use ValidationHelper, ResponseHelper;
-
     private array $request;
-
 
     public function __construct(array $request)
     {
@@ -23,8 +21,8 @@ class AllUsersPublicationList
     {
         try {
             return $this
-                ->getPublication()
-                ->sendSuccess($this->publication, 'publication fetched successfully');
+                ->getReferees()
+                ->sendSuccess($this->referee, 'referee(s) fetched successfully');
 
         } catch (\Exception $e) {
             return $this->sendServerError($e);
@@ -32,9 +30,9 @@ class AllUsersPublicationList
     }
 
 
-    private function getPublication(): self
+    private function getReferees(): self
     {
-        $this->publication = Publication::all();
+        $this->referee = Referee::all();
         return $this;
 
     }

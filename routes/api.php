@@ -5,6 +5,8 @@ use Transave\ScolaCvManagement\Http\Controllers\AchievementController;
 use Transave\ScolaCvManagement\Http\Controllers\Auth\AuthenticationController;
 use Transave\ScolaCvManagement\Http\Controllers\CredentialController;
 use Transave\ScolaCvManagement\Http\Controllers\PublicationController;
+use Transave\ScolaCvManagement\Http\Controllers\RefereeController;
+use Transave\ScolaCvManagement\Http\Controllers\WorkExperienceController;
 
 Route::as('cv.')->group(function () {
     Route::post('register', [AuthenticationController::class, 'register'])->name('register');
@@ -31,6 +33,25 @@ Route::as('cv.')->prefix('achievements')->group(function() {
     Route::match(['POST', 'PUT', 'PATCH'],'/{id}', [ AchievementController::class, 'update'])->name('update');
     Route::delete('/{id}', [ AchievementController::class, 'delete'])->name('delete');
 });
+
+
+Route::as('cv.')->prefix('work_experiences')->group(function() {
+    Route::get('/', [ WorkExperienceController::class, 'index'])->name('index');
+    Route::post('store', [ WorkExperienceController::class, 'store'])->name('store');
+    Route::get('show/{cv_id}', [ WorkExperienceController::class, 'show'])->name('show');
+    Route::PATCH('update/{id}', [ WorkExperienceController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [ WorkExperienceController::class, 'delete'])->name('delete');
+});
+
+
+Route::as('cv.')->prefix('referees')->group(function() {
+    Route::get('/', [ RefereeController::class, 'index'])->name('index');
+    Route::post('store', [ RefereeController::class, 'store'])->name('store');
+    Route::get('show/{cv_id}', [ RefereeController::class, 'show'])->name('show');
+    Route::PATCH('update/{id}', [ RefereeController::class, 'update'])->name('update');
+    Route::delete('delete/{id}', [ RefereeController::class, 'delete'])->name('delete');
+});
+
 
 
 Route::as('cv.')->prefix('credentials')->group(function() {

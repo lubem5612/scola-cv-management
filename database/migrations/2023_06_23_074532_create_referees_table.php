@@ -18,10 +18,10 @@ class CreateRefereesTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
             $table->string('name')->index();
-            $table->string('address')->index();
+            $table->string('address')->nullable();
             $table->string('place_of_work')->nullable()->index();
             $table->string('contact', 20)->index();
-            $table->string('relationship')->nullable()->index();
+            $table->string('relationship')->nullable();
             $table->timestamps();
 
         });

@@ -1,8 +1,8 @@
 <?php
-namespace Transave\ScolaCvManagement\Http\work;
+namespace Transave\ScolaCvManagement\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Actions\CreateAchievement;
+use Transave\ScolaCvManagement\Actions\Achievement\CreateAchievement;
 use Transave\ScolaCvManagement\Actions\Achievement\DeleteAchievement;
 use Transave\ScolaCvManagement\Actions\Achievement\GetAchievementByID;
 use Transave\ScolaCvManagement\Actions\Achievement\SearchAchievement;
