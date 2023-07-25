@@ -15,6 +15,8 @@ return [
         'middleware' => 'api'
     ],
 
+    'default_disk' => env('DEFAULT_DISK', 'local'),
+
     'storage_prefix' => env('STORAGE_PREFIX', 'cv'),
 
     'azure' => [

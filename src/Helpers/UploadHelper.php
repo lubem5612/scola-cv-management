@@ -92,6 +92,7 @@ class UploadHelper
 
     private function setStorageConfig()
     {
+        $this->disk = config('scolacv.default_disk');
         $this->storageConfig = config("scolacv.$this->disk");
     }
 
