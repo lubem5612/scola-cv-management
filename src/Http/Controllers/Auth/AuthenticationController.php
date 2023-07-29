@@ -23,7 +23,8 @@ class AuthenticationController extends Controller
 
     public function register(Request $request)
     {
-        return (new CreateAccount($request->except(['picture'])))->execute();
+        $data = $request->all();
+        return (new CreateAccount($data))->execute();
     }
 
     public function login(Request $request)

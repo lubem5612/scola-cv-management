@@ -72,8 +72,8 @@ class CreateAccount
 
     private function uploadPhoto()
     {
-        if (request()->hasFile('picture')) {
-            $response = $this->uploader->uploadFile(request()->file('picture'), 'cv-management/profiles', 'azure');
+        if (array_key_exists('picture', $this->request)) {
+            $response = $this->uploader->uploadFile($this->request['picture'], 'profiles');
             if ($response['success']) {
                 $this->validatedInput['picture'] = $response['upload_url'];
             }
@@ -114,7 +114,7 @@ class CreateAccount
             "token" => ["nullable"],
             "is_verified" => ["sometimes", "required", "integer", "in:0,1"],
             "email_verified_at" => ["sometimes", "required", "date"],
-            'phone' => ["sometimes", "required", "string", "max:16", "min:8"],
+            'phone' => ["sometimes", "required", "string", "max:20", "min:8"],
             'gender' => ["sometimes", "required", "in:male,female,other"],
             'marital_status' => ["sometimes", "required", "in:single,divorced,widowed,married"],
             'residential_address' => ["sometimes", "required", "string", "max:255"],

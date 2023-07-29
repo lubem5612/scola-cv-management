@@ -20,17 +20,16 @@ class UploadHelper
     private $uploadedFileError = [];
     private $uploadedFileMessage = '';
 
-    public function uploadFile(UploadedFile $uploadedFile, $folder, $disk='azure')
+    public function uploadFile(UploadedFile $uploadedFile, $folder)
     {
         try{
-            $this->disk = $disk;
             $this->setStorageConfig();
             $extension = $uploadedFile->getClientOriginalExtension();
             $filename = uniqid().'.'.$extension;
 
-            $path = $uploadedFile->storePubliclyAs($folder, $filename, $disk);
+            $path = $uploadedFile->storePubliclyAs($folder, $filename, $this->disk);
             if ($path) {
-                $this->uploadedFilePath = $this->storageConfig['storage_url'].'/'.config('scolacv.storage_prefix').'/'.$path;
+                $this->uploadedFilePath = $this->storageConfig['storage_url'].'/'.config('scolacv.storage.prefix').'/'.$path;
                 $this->uploadedFileSize = $uploadedFile->getSize();
                 $this->uploadedFileExtension = $extension;
                 $this->isSuccessful = true;
@@ -43,11 +42,12 @@ class UploadHelper
         return $this->response();
     }
 
-    public function deleteFile($file_url, $disk='azure')
+    public function deleteFile($file_url)
     {
         try {
+            $this->setStorageConfig();
             $this->setRealPath($file_url);
-            Storage::disk($disk)->delete($this->fileRealPath);
+            Storage::disk($this->disk)->delete($this->fileRealPath);
             $this->isSuccessful = true;
             $this->uploadedFileMessage = "deleted successfully";
         }catch (\Exception $exception) {
@@ -57,11 +57,12 @@ class UploadHelper
         return $this->response();
     }
 
-    public function uploadOrReplaceFile(UploadedFile $uploadedFile, $folder, $model, $column, $disk='azure')
+    public function uploadOrReplaceFile(UploadedFile $uploadedFile, $folder, $model, $column)
     {
+        $this->setStorageConfig();
         try{
             if($model->$column) {
-                $deleteAction = $this->deleteFile($model->$column, $disk);
+                $deleteAction = $this->deleteFile($model->$column);
                 if (!$deleteAction["success"]) {
                     $this->uploadedFileMessage = "unable to delete existing file";
                     $this->isSuccessful = false;
@@ -69,7 +70,7 @@ class UploadHelper
                 }
             }
 
-            $uploadAction = $this->uploadFile($uploadedFile, $folder, $disk);
+            $uploadAction = $this->uploadFile($uploadedFile, $folder);
             if (!$uploadAction['success']) {
                 $this->uploadedFileMessage = "unable to upload new file";
                 $this->isSuccessful = false;
@@ -86,12 +87,13 @@ class UploadHelper
 
     private function setRealPath($url)
     {
-        $prefix = config('scolacv.storage_prefix').'/';
+        $prefix = config('scolacv.storage.prefix').'/';
         $this->fileRealPath = Str::after($url, $prefix);
     }
 
     private function setStorageConfig()
     {
+        $this->disk = config('scolacv.storage.driver');
         $this->storageConfig = config("scolacv.$this->disk");
     }
 

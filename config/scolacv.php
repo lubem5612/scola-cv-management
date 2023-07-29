@@ -15,7 +15,10 @@ return [
         'middleware' => 'api'
     ],
 
-    'storage_prefix' => env('STORAGE_PREFIX', 'cv'),
+    'storage' => [
+        'prefix' => env('STORAGE_PREFIX','cv-management'),
+        'driver' => env('STORAGE_DRIVER', 'local'),
+    ],
 
     'azure' => [
         'storage_url' => 'https://'.env('AZURE_STORAGE_NAME').'.blob.core.windows.net/'.env('AZURE_STORAGE_CONTAINER'),
