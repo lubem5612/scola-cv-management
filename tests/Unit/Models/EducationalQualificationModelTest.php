@@ -2,18 +2,28 @@
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
 use Transave\ScolaCvManagement\Http\Models\EducationalQualification;
-use Orchestra\Testbench\TestCase;
+use Transave\ScolaCvManagement\Tests\TestCase;
 
 
 class EducationalQualificationModelTest extends TestCase
 {
+    private $educationalQualification;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->educationalQualification = EducationalQualification::factory()->create();
     }
 
-    public function test_can_check_if_Educational_Qualification_model_exists()
+    /** @test */
+    public function educational_Qualification_model_can_be_initiated_with_factory()
     {
-        $this->assertTrue(class_exists(EducationalQualification::class), 'Educational Qualification model does not exist.');
+        $this->assertTrue($this->educationalQualification instanceof EducationalQualification);
+    }
+
+    /** @test */
+    public function educational_Qualification_table_exists_in_database()
+    {
+        $this->assertModelExists($this->educationalQualification);
     }
 }

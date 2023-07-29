@@ -2,18 +2,28 @@
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
 use Transave\ScolaCvManagement\Http\Models\Faculty;
-use Orchestra\Testbench\TestCase;
+use Transave\ScolaCvManagement\Tests\TestCase;
 
 
 class FacultyModelTest extends TestCase
 {
+    private $faculty;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->faculty = Faculty::factory()->create();
     }
 
-    public function test_can_check_if_Faculty_model_exists()
+    /** @test */
+    public function faculty_model_can_be_initiated_with_factory()
     {
-        $this->assertTrue(class_exists(Faculty::class), 'Faculty model does not exist.');
+        $this->assertTrue($this->faculty instanceof Faculty);
+    }
+
+    /** @test */
+    public function faculty_table_exists_in_database()
+    {
+        $this->assertModelExists($this->faculty);
     }
 }

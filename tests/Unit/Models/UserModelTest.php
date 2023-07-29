@@ -2,17 +2,28 @@
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
 use Transave\ScolaCvManagement\Http\Models\User;
-use Orchestra\Testbench\TestCase;
+use Transave\ScolaCvManagement\Tests\TestCase;
+
 
 class UserModelTest extends TestCase
 {
+    private $user;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->user = User::factory()->create();
     }
 
-    public function test_can_check_if_Schools_model_exists()
+    /** @test */
+    public function user_model_can_be_initiated_with_factory()
     {
-        $this->assertTrue(class_exists(User::class), 'User model does not exist.');
+        $this->assertTrue($this->user instanceof User);
+    }
+
+    /** @test */
+    public function user_table_exists_in_database()
+    {
+        $this->assertModelExists($this->user);
     }
 }

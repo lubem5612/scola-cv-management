@@ -2,17 +2,28 @@
 namespace Transave\ScolaCvManagement\Tests\Unit\Models;
 
 use Transave\ScolaCvManagement\Http\Models\Publication;
-use Orchestra\Testbench\TestCase;
+use Transave\ScolaCvManagement\Tests\TestCase;
+
 
 class PublicationModelTest extends TestCase
 {
+    private $publication;
+
     public function setUp(): void
     {
         parent::setUp();
+        $this->publication = Publication::factory()->create();
     }
 
-    public function test_can_check_if_Publications_model_exists()
+    /** @test */
+    public function publication_model_can_be_initiated_with_factory()
     {
-        $this->assertTrue(class_exists(Publication::class), 'Publication model does not exist.');
+        $this->assertTrue($this->publication instanceof Publication);
+    }
+
+    /** @test */
+    public function publication_table_exists_in_database()
+    {
+        $this->assertModelExists($this->publication);
     }
 }

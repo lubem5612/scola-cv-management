@@ -16,7 +16,7 @@ class CreateAchievementsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
             $table->string('title')->index();
-            $table->timestamp('date_achieved')->nullable();
+            $table->timestamp('date_achieved')->index()->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

@@ -12,9 +12,13 @@ class Publication extends Model
 {
     use HasFactory, UUIDHelper;
 
-    protected $guarded = [ 'id' ];
+    protected $guarded = [
+        "id"
+    ];
 
     protected $table = 'publications';
+
+
 
     public function cv() : BelongsTo
     {
