@@ -32,7 +32,7 @@ class LoginAccount
 
     private function authenticateUser()
     {
-        $isAuth = auth()->guard('api')->attempt([$this->username => $this->data['email'], 'password' => $this->data['password']]);
+        $isAuth = auth()->guard('api')->attempt([$this->username => $this->validatedInput['email'], 'password' => $this->validatedInput['password']]);
         if ($isAuth) {
             $token = auth()->guard('api')->user()->createToken(uniqid())->plainTextToken;
             return $this->sendSuccess($token, 'login successful');

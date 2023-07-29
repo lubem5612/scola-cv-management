@@ -4,6 +4,7 @@ namespace Transave\ScolaCvManagement\Database\Factories;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Transave\ScolaCvManagement\Http\Models\Country;
+use Transave\ScolaCvManagement\Http\Models\CV;
 use Transave\ScolaCvManagement\Http\Models\EducationalQualification;
 use Transave\ScolaCvManagement\Http\Models\Qualification;
 
@@ -25,7 +26,7 @@ class EducationalQualificationFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => config('scolacv.auth_model')::factory(),
+            'cv_id' => CV::factory(),
             'institution' => $this->faker->sentence(3),
             'description' => $this->faker->sentence(8),
             'qualification_id' => Qualification::factory(),
