@@ -9,7 +9,7 @@ use Transave\ScolaCvManagement\Http\Models\Publication;
 class DeletePublication
 {
     use ResponseHelper, ValidationHelper;
-    private $request;
+    private $request, $validatedInput;
 
     public function __construct(array $request)
     {
@@ -21,7 +21,6 @@ class DeletePublication
         try {
             return $this
                 ->validateRequest()
-                ->getPublication()
                 ->deletePublication();
         }catch (\Exception $e) {
             return $this->sendServerError($e);
@@ -30,20 +29,14 @@ class DeletePublication
 
     private function deletePublication()
     {
-        $this->publication->delete();
+        Publication::destroy($this->validatedInput['publication_id']);
         return $this->sendSuccess(null, 'publication deleted successfully');
-    }
-
-    private function getPublication() :self
-    {
-        $this->publication = Publication::query()->find($this->request['id']);
-        return  $this;
     }
 
     private function validateRequest() : self
     {
-        $this->validate($this->request, [
-            'id' => 'required|exists:publications,id'
+        $this->validatedInput = $this->validate($this->request, [
+            'publication_id' => 'required|exists:publications,id'
         ]);
         return $this;
     }

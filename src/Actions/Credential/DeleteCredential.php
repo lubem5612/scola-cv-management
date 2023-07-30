@@ -37,7 +37,7 @@ class DeleteCredential
     {
         $this->credential = Credential::query()->find($this->validatedInput['credential_id']);
         if ($this->credential->file) {
-            $this->uploader->deleteFile($this->credential->file, 'azure');
+            $this->uploader->deleteFile($this->credential->file);
         }
         return $this;
     }

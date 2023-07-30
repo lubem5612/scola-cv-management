@@ -47,8 +47,8 @@ class UpdateCredential
 
     private function setUploadFileUrl()
     {
-        if (request()->hasFile('file')) {
-            $response = $this->uploader->uploadOrReplaceFile(request()->file('file'), 'credentials', $this->credential, 'file');
+        if (array_key_exists('file', $this->request)) {
+            $response = $this->uploader->uploadOrReplaceFile($this->request['file'], 'credentials', $this->credential, 'file');
             if ($response['success']) {
                 $this->validatedInput['file'] = $response['upload_url'];
                 $this->validatedInput['size'] = $response['size'];
@@ -75,7 +75,7 @@ class UpdateCredential
     private function validateRequest()
     {
         $data = $this->validate($this->request, [
-            'credential_id' => 'required|exists,credentials,id',
+            'credential_id' => 'required|exists:credentials,id',
             'cv_id' => 'sometimes|required|exists:cvs,id',
             'slug' => 'sometimes|required|string|max:255',
             'file' => 'sometimes|required|file|max:5000|mimes:jped,jpg,gif,webp,pdf,doc,docx',

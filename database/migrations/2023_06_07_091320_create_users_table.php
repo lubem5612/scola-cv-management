@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('token')->nullable();
             $table->boolean('is_verified')->default(false)->index();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('user_type')->default('other');
+            $table->string('user_type')->default('user');
             $table->string('phone', 20)->unique()->nullable();
             $table->string('gender', 20)->nullable();
             $table->string('marital_status', 50)->nullable();

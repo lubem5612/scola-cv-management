@@ -64,7 +64,9 @@ class SearchCredentialsTest extends TestCase
     function can_fetch_credentials_within_interval()
     {
         $this->getTestData(null, Carbon::now());
-        $response = $this->json('GET', '/cv/credentials?start=2023-07-12&end=2023-07-16');
+        $start = Carbon::now()->subMonths(3)->format('Y-m-d');
+        $end = Carbon::now()->subDays(2)->format('Y-m-d');
+        $response = $this->json('GET', '/cv/credentials?start='.$start.'&end='.$end);
         $response->assertStatus(200);
         $arrayData = json_decode($response->getContent(), true);
         $this->assertEquals(true, $arrayData['success']);

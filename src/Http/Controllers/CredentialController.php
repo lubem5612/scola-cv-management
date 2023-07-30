@@ -12,26 +12,45 @@ use Transave\ScolaCvManagement\Http\Models\Credential;
 
 class CredentialController extends Controller
 {
+    /**
+     * CredentialController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth:sanctum');
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
     public function index()
     {
         return (new SearchCredential(Credential::class, ['cv']))->execute();
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         return (new CreateCredential($request->all()))->execute();
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
     public function show($id)
     {
         return (new SearchCredential(Credential::class, ['cv'], $id))->execute();
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
         $data = array_merge($request->all(), ['credential_id' => $id]);

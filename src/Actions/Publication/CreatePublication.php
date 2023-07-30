@@ -9,7 +9,7 @@ use Transave\ScolaCvManagement\Http\Models\Publication;
 class CreatePublication
 {
     use ResponseHelper, ValidationHelper;
-    private array $request;
+    private $request, $data;
 
     public function __construct(array $request)
     {
@@ -37,9 +37,9 @@ class CreatePublication
     {
         $this->data = $this->validate($this->request, [
             'cv_id' => 'required|exists:cvs,id',
-            'link' => 'required|string|max:255',
-            'short_description' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'link' => 'sometimes|required|string|max:255',
+            'short_description' => 'sometimes|required|string|max:255',
+            'description' => 'sometimes|required|string',
         ]);
         return $this;
     }

@@ -14,8 +14,8 @@ use Transave\ScolaCvManagement\Http\Models\Credential;
 class CreateCredential
 {
     use ResponseHelper, ValidationHelper;
-    private array $request;
-    private array $validatedInput;
+    private $request;
+    private $validatedInput;
     private $uploader;
 
     public function __construct(array $request)
@@ -39,8 +39,8 @@ class CreateCredential
 
     private function setUploadFileUrl()
     {
-        if (request()->hasFile('file')) {
-            $response = $this->uploader->uploadFile(request()->file('file'), 'credentials', 'azure');
+        if (array_key_exists('file', $this->request)) {
+            $response = $this->uploader->uploadFile($this->request['file'], 'credentials');
             if ($response['success']) {
                 $this->validatedInput['file'] = $response['upload_url'];
                 $this->validatedInput['size'] = $response['size'];
