@@ -1,61 +1,80 @@
 <?php
 
+
 namespace Transave\ScolaCvManagement\Tests\Feature\Publication;
 
+
+use Faker\Factory;
 use Laravel\Sanctum\Sanctum;
-use Transave\ScolaCvManagement\Actions\Publication\GetPublicationByID;
-use Transave\ScolaCvManagement\Actions\Publication\AllUsersPublicationList;
-use Transave\ScolaCvManagement\Actions\Publication\SearchPublication;
-use Transave\ScolaCvManagement\Actions\Publication\SingleUserPublicationList;
+use Transave\ScolaCvManagement\Http\Models\CV;
 use Transave\ScolaCvManagement\Http\Models\Publication;
 use Transave\ScolaCvManagement\Tests\TestCase;
 
 class SearchPublicationTest extends TestCase
 {
+    private $faker;
     public function setUp(): void
     {
         parent::setUp();
-
-        Publication::factory()->count(10)->create();
+        $this->faker = Factory::create();
+        $user = config('scolacv.auth_model')::factory()->create();
+        Sanctum::actingAs($user);
     }
 
     /** @test */
-    public function can_search_publication_via_action()
+    function can_fetch_all_publications()
     {
-        $response = (new SearchPublication(Publication::class, []))->execute();
-        $array = json_decode($response->getContent(), true);
-        $this->assertEquals(true, $array['success']);
-        $this->assertNotNull($array['data']);
+        $this->getTestData();
+        $response = $this->json('GET', '/cv/publications');
+        $response->assertStatus(200);
+        $arrayData = json_decode($response->getContent(), true);
+        $this->assertEquals(true, $arrayData['success']);
+        $this->assertNotNull($arrayData['data']);
+        $this->assertCount(20, $arrayData['data']);
     }
 
     /** @test */
-    public function can_search_publication_via_action_with_relationship()
+    function can_fetch_paginated_publications()
     {
-        $response = (new SearchPublication(Publication::class, ['CV']))->execute();
-        $array = json_decode($response->getContent(), true);
-        $this->assertEquals(true, $array['success']);
-        $this->assertNotNull($array['data']);
+        $this->getTestData();
+        $response = $this->json('GET', '/cv/publications?per_page=5');
+        $response->assertStatus(200);
+        $arrayData = json_decode($response->getContent(), true);
+        $this->assertEquals(true, $arrayData['success']);
+        $this->assertNotNull($arrayData['data']);
+        $this->assertCount(5, $arrayData['data']['data']);
     }
 
     /** @test */
-    public function can_search_single_publication_via_action_with_relationship()
+    function can_fetch_publications_with_search_term()
     {
-        $publication = Publication::query()->inRandomOrder()->first();
-        $response = (new GetPublicationByID(['id' => $publication->id]))->execute();
-        $array = json_decode($response->getContent(), true);
-        $this->assertEquals(true, $array['success']);
-        $this->assertNotNull($array['data']);
+        $this->getTestData('this is my first publication');
+        $response = $this->json('GET', '/cv/publications?search=first');
+        $response->assertStatus(200);
+        $arrayData = json_decode($response->getContent(), true);
+        $this->assertEquals(true, $arrayData['success']);
+        $this->assertNotNull($arrayData['data']);
+        $this->assertCount(10, $arrayData['data']);
+    }
+
+    /** @test */
+    function can_fetch_publication_with_specific_id()
+    {
+        $this->getTestData();
+        $item = Publication::query()->inRandomOrder()->first();
+        $response = $this->json('GET', "/cv/publications/$item->id");
+        $response->assertStatus(200);
+        $arrayData = json_decode($response->getContent(), true);
+        $this->assertEquals(true, $arrayData['success']);
+        $this->assertNotNull($arrayData['data']);
     }
 
 
-
-    /** @test */
-    public function can_search_user_publications_via_action_with_relationship()
+    private function getTestData($short_description=null)
     {
-        $publication = Publication::query()->inRandomOrder()->first();
-        $response = (new SingleUserPublicationList(['cv_id' => $publication->cv_id]))->execute();
-        $array = json_decode($response->getContent(), true);
-        $this->assertEquals(true, $array['success']);
-        $this->assertNotNull($array['data']);
+        $search = is_null($short_description)? $this->faker->sentence(2): $short_description;
+
+        Publication::factory()->count(10)->for(CV::factory())->create();
+        Publication::factory()->count(10)->for(CV::factory())->create(['short_description' => $search]);
     }
 }

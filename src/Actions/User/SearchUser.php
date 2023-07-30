@@ -12,6 +12,11 @@ class SearchUser
 
     private function searchTerms()
     {
+        if (request()->query('only_admin')) {
+            $this->queryBuilder->where('user_type', 'admin');
+        }else {
+            $this->queryBuilder->where('user_type', 'user');
+        }
         $search = $this->searchParam;
         $this->queryBuilder->where(function($query) use($search) {
             $query->where('first_name', "like", "%$search%")
