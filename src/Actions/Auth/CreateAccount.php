@@ -94,7 +94,7 @@ class CreateAccount
         return $this;
     }
 
-    public function validateRequest(): self
+    private function validateRequest(): self
     {
         $data = $this->validate($this->request, [
             'first_name' => ['required', 'string', 'max:255'],

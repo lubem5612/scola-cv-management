@@ -1,23 +1,24 @@
 <?php
 
+
 namespace Transave\ScolaCvManagement\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use Transave\ScolaCvManagement\Actions\Credential\CreateCredential;
-use Transave\ScolaCvManagement\Actions\Credential\DeleteCredential;
-use Transave\ScolaCvManagement\Actions\Credential\SearchCredential;
-use Transave\ScolaCvManagement\Actions\Credential\UpdateCredential;
-use Transave\ScolaCvManagement\Http\Models\Credential;
+use Transave\ScolaCvManagement\Actions\Gallery\CreateGallery;
+use Transave\ScolaCvManagement\Actions\Gallery\DeleteGallery;
+use Transave\ScolaCvManagement\Actions\Gallery\SearchGallery;
+use Transave\ScolaCvManagement\Actions\Gallery\UpdateGallery;
+use Transave\ScolaCvManagement\Http\Models\Gallery;
 
-class CredentialController extends Controller
+class GalleryController extends Controller
 {
     /**
-     * CredentialController constructor.
+     * GalleryController constructor.
      */
     public function __construct()
     {
-        $this->middleware('auth:sanctum');
+        $this->middleware(['auth:sanctum'])->except(['index', 'show']);
     }
 
     /**
@@ -25,7 +26,7 @@ class CredentialController extends Controller
      */
     public function index()
     {
-        return (new SearchCredential(Credential::class, ['cv']))->execute();
+        return (new SearchGallery(Gallery::class, ['cv']))->execute();
     }
 
     /**
@@ -34,7 +35,7 @@ class CredentialController extends Controller
      */
     public function store(Request $request)
     {
-        return (new CreateCredential($request->all()))->execute();
+        return (new CreateGallery($request->all()))->execute();
     }
 
     /**
@@ -43,7 +44,7 @@ class CredentialController extends Controller
      */
     public function show($id)
     {
-        return (new SearchCredential(Credential::class, ['cv'], $id))->execute();
+        return (new SearchGallery(Gallery::class, ['cv'], $id))->execute();
     }
 
     /**
@@ -53,8 +54,8 @@ class CredentialController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = array_merge($request->all(), ['credential_id' => $id]);
-        return (new UpdateCredential($data))->execute();
+        $data = array_merge($request->all(), ['gallery_id' => $id]);
+        return (new UpdateGallery($data))->execute();
     }
 
     /**
@@ -63,6 +64,6 @@ class CredentialController extends Controller
      */
     public function destroy($id)
     {
-        return (new DeleteCredential(['credential_id' => $id]))->execute();
+        return (new DeleteGallery(['gallery_id' => $id]))->execute();
     }
 }

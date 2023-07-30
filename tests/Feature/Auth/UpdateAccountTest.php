@@ -15,7 +15,7 @@ use Transave\ScolaCvManagement\Http\Models\Qualification;
 use Transave\ScolaCvManagement\Http\Models\School;
 use Transave\ScolaCvManagement\Tests\TestCase;
 
-class UpdateUserAccountTest extends TestCase
+class UpdateAccountTest extends TestCase
 {
     private $user, $request, $faker;
 

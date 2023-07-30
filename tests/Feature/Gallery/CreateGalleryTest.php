@@ -1,17 +1,16 @@
 <?php
 
 
-namespace Transave\ScolaCvManagement\Tests\Feature\Credentials;
+namespace Transave\ScolaCvManagement\Tests\Feature\Gallery;
 
 
 use Faker\Factory;
 use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\Sanctum;
-use Transave\ScolaCvManagement\Http\Models\Credential;
 use Transave\ScolaCvManagement\Http\Models\CV;
 use Transave\ScolaCvManagement\Tests\TestCase;
 
-class UpdateCredentialTest extends TestCase
+class CreateGalleryTest extends TestCase
 {
     private $faker;
     public function setUp(): void
@@ -23,16 +22,13 @@ class UpdateCredentialTest extends TestCase
     }
 
     /** @test */
-    function can_update_credential_successfully()
+    function can_create_gallery_successfully()
     {
-        $credential = Credential::factory()->create();
         $request = [
-            'slug' => $this->faker->name,
             'cv_id' => CV::factory()->create()->id,
-            'file' => UploadedFile::fake()->create('file.pdf', '500', 'application/pdf'),
-            'credential_id' => $credential->id,
+            'photo' => UploadedFile::fake()->image('image.jpg')
         ];
-        $response = $this->json('POST', "/cv/credentials/$credential->id", $request);
+        $response = $this->json('POST', "/cv/galleries", $request);
         $response->assertStatus(200);
         $arrayData = json_decode($response->getContent(), true);
         $this->assertEquals(true, $arrayData['success']);

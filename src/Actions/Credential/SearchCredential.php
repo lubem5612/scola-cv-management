@@ -8,7 +8,7 @@ use Transave\ScolaCvManagement\Helpers\SearchHelper;
 
 class SearchCredential
 {
-    use SearchHelper, ResponseHelper;
+    use SearchHelper;
 
     private function searchTerms()
     {
