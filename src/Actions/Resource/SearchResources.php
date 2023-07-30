@@ -40,7 +40,7 @@ class SearchResources
                 ->filterWithTimeStamps()
                 ->filterWithOrder()
                 ->getResources()
-                ->sendSuccess($this->resources, 'resource returned');
+                ->sendSuccess($this->resources, 'resources returned');
         }catch (\Exception $e) {
             return $this->sendServerError($e);
         }

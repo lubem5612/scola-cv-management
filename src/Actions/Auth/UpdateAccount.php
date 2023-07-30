@@ -23,7 +23,12 @@ class UpdateAccount
     public function execute()
     {
         try {
-            return $this->validateRequest()->setUser()->checkIfNewEmail()->uploadPictureIfExists()->updateUser();
+            return $this
+                ->validateRequest()
+                ->setUser()
+                ->checkIfNewEmail()
+                ->uploadPictureIfExists()
+                ->updateUser();
         }catch (\Exception $e) {
             return $this->sendServerError($e);
         }
@@ -45,8 +50,8 @@ class UpdateAccount
 
     private function uploadPictureIfExists()
     {
-        if($this->request['picture']) {
-            $response = $this->uploader->uploadOrReplaceFile($this->request['picture'], 'cv-management/profile', $this->user, 'picture');
+        if(array_key_exists('picture', $this->request)) {
+            $response = $this->uploader->uploadOrReplaceFile($this->request['picture'], 'profiles', $this->user, 'pictures');
             if ($response['success']) {
                 $this->validatedInput['picture'] = $response['upload_url'];
             }

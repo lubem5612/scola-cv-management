@@ -10,8 +10,9 @@ use Transave\ScolaCvManagement\Http\Models\Publication;
 class UpdatePublication
 {
     use ResponseHelper, ValidationHelper;
-    private array $request;
-    private array $validatedInput;
+    private $request;
+    private $validatedInput;
+    private Publication $publication;
 
     public function __construct(array $request)
     {
@@ -33,24 +34,24 @@ class UpdatePublication
     private function getPublication()
     {
         $this->publication = Publication::query()->find($this->validatedInput['publication_id']);
-
         return $this;
     }
 
     private function updatePublication()
     {
         $this->publication->fill($this->validatedInput)->save();
-        return $this->sendSuccess($this->publication->refresh(), 'Publication updated successfully');
+        return $this->sendSuccess($this->publication->refresh()
+            ->load('cv'), 'Publication updated successfully');
     }
 
     private function validateRequest()
     {
         $this->validatedInput = $this->validate($this->request, [
             'publication_id' => 'required|exists:publications,id',
-            'short_description' => 'required|string',
+            'short_description' => 'sometimes|required|string|max:255',
             'cv_id' => 'sometimes|required|exists:cvs,id',
-            'description' => 'sometimes|required|string|max:255',
-            'link' => 'sometimes|required|string',
+            'description' => 'sometimes|required|string',
+            'link' => 'sometimes|required|string|max:255',
         ]);
         return $this;
     }

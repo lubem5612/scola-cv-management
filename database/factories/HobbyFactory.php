@@ -15,7 +15,7 @@ class HobbyFactory extends Factory
         return [
             'cv_id' => CV::factory(),
             'name' => $this->faker->word,
-            'priority' => $this->faker->words,
+            'priority' => $this->faker->word,
         ];
     }
 }

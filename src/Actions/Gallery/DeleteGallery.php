@@ -1,18 +1,18 @@
 <?php
 
 
-namespace Transave\ScolaCvManagement\Actions\Credential;
+namespace Transave\ScolaCvManagement\Actions\Gallery;
 
 
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\UploadHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
-use Transave\ScolaCvManagement\Http\Models\Credential;
+use Transave\ScolaCvManagement\Http\Models\Gallery;
 
-class DeleteCredential
+class DeleteGallery
 {
     use ResponseHelper, ValidationHelper;
-    private Credential $credential;
+    private Gallery $gallery;
     private $request, $validatedInput, $uploader;
 
     public function __construct(array $request)
@@ -27,7 +27,7 @@ class DeleteCredential
             return $this
                 ->validateRequest()
                 ->deleteFileIfExist()
-                ->deleteCredential();
+                ->deleteGallery();
         }catch (\Exception $e) {
             return $this->sendServerError($e);
         }
@@ -35,23 +35,23 @@ class DeleteCredential
 
     private function deleteFileIfExist()
     {
-        $this->credential = Credential::query()->find($this->validatedInput['credential_id']);
-        if ($this->credential->file) {
-            $this->uploader->deleteFile($this->credential->file);
+        $this->gallery = Gallery::query()->find($this->validatedInput['gallery_id']);
+        if ($this->gallery->photo) {
+            $this->uploader->deleteFile($this->gallery->photo);
         }
         return $this;
     }
 
-    private function deleteCredential()
+    private function deleteGallery()
     {
-        $this->credential->delete();
-        return $this->sendSuccess(null, 'credential deleted successfully');
+        $this->gallery->delete();
+        return $this->sendSuccess(null, 'gallery deleted successfully');
     }
 
     private function validateRequest()
     {
         $this->validatedInput = $this->validate($this->request, [
-            'credential_id' => 'required|exists:credentials,id'
+            'gallery_id' => 'required|exists:galleries,id'
         ]);
         return $this;
     }

@@ -1,38 +1,37 @@
 <?php
 
 
-namespace Transave\ScolaCvManagement\Tests\Feature\Credentials;
+namespace Transave\ScolaCvManagement\Tests\Feature\Gallery;
 
 
 use Faker\Factory;
 use Illuminate\Http\UploadedFile;
 use Laravel\Sanctum\Sanctum;
-use Transave\ScolaCvManagement\Http\Models\Credential;
 use Transave\ScolaCvManagement\Http\Models\CV;
+use Transave\ScolaCvManagement\Http\Models\Gallery;
 use Transave\ScolaCvManagement\Tests\TestCase;
 
-class UpdateCredentialTest extends TestCase
+class UpdateGalleryTest extends TestCase
 {
-    private $faker;
+    private $faker, $gallery;
     public function setUp(): void
     {
         parent::setUp();
         $this->faker = Factory::create();
         $user = config('scolacv.auth_model')::factory()->create(['user_type' => 'admin']);
         Sanctum::actingAs($user);
+        $this->gallery = Gallery::factory()->create();
     }
 
     /** @test */
-    function can_update_credential_successfully()
+    function can_update_gallery_successfully()
     {
-        $credential = Credential::factory()->create();
         $request = [
-            'slug' => $this->faker->name,
+            'gallery_id' => $this->gallery->id,
             'cv_id' => CV::factory()->create()->id,
-            'file' => UploadedFile::fake()->create('file.pdf', '500', 'application/pdf'),
-            'credential_id' => $credential->id,
+            'photo' => UploadedFile::fake()->image('image.jpg')
         ];
-        $response = $this->json('POST', "/cv/credentials/$credential->id", $request);
+        $response = $this->json('POST', "/cv/galleries/{$this->gallery->id}", $request);
         $response->assertStatus(200);
         $arrayData = json_decode($response->getContent(), true);
         $this->assertEquals(true, $arrayData['success']);

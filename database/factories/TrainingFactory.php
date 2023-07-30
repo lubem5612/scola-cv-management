@@ -28,7 +28,7 @@ class TrainingFactory extends Factory
 
         return [
             'institution' => $this->faker->company,
-            'certificate' => $this->faker->words,
+            'certificate' => $this->faker->word,
             'description'=> $this->faker->sentence,
             'cv_id' => CV::factory(),
             'start_date' => $this->faker->date,

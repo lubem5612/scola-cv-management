@@ -1,18 +1,17 @@
 <?php
 
 
-namespace Transave\ScolaCvManagement\Actions\Credential;
+namespace Transave\ScolaCvManagement\Actions\User;
 
 
 use Transave\ScolaCvManagement\Helpers\ResponseHelper;
 use Transave\ScolaCvManagement\Helpers\UploadHelper;
 use Transave\ScolaCvManagement\Helpers\ValidationHelper;
-use Transave\ScolaCvManagement\Http\Models\Credential;
 
-class DeleteCredential
+class DeleteUser
 {
     use ResponseHelper, ValidationHelper;
-    private Credential $credential;
+    private $user;
     private $request, $validatedInput, $uploader;
 
     public function __construct(array $request)
@@ -27,7 +26,7 @@ class DeleteCredential
             return $this
                 ->validateRequest()
                 ->deleteFileIfExist()
-                ->deleteCredential();
+                ->deleteUser();
         }catch (\Exception $e) {
             return $this->sendServerError($e);
         }
@@ -35,23 +34,23 @@ class DeleteCredential
 
     private function deleteFileIfExist()
     {
-        $this->credential = Credential::query()->find($this->validatedInput['credential_id']);
-        if ($this->credential->file) {
-            $this->uploader->deleteFile($this->credential->file);
+        $this->user = config('scolacv.auth_model')::query()->find($this->validatedInput['user_id']);
+        if ($this->user->picture) {
+            $this->uploader->deleteFile($this->user->picture);
         }
         return $this;
     }
 
-    private function deleteCredential()
+    private function deleteUser()
     {
-        $this->credential->delete();
-        return $this->sendSuccess(null, 'credential deleted successfully');
+        $this->user->delete();
+        return $this->sendSuccess(null, 'user deleted successfully');
     }
 
     private function validateRequest()
     {
         $this->validatedInput = $this->validate($this->request, [
-            'credential_id' => 'required|exists:credentials,id'
+            'user_id' => 'required|exists:users,id'
         ]);
         return $this;
     }

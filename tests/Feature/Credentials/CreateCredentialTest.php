@@ -12,7 +12,7 @@ use Transave\ScolaCvManagement\Tests\TestCase;
 
 class CreateCredentialTest extends TestCase
 {
-    private $request, $faker;
+    private $faker;
     public function setUp(): void
     {
         parent::setUp();
