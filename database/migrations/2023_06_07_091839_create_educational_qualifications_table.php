@@ -16,12 +16,12 @@ class CreateEducationalQualificationsTable extends Migration
         Schema::create('educational_qualifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
+            $table->foreignId('qualification_id')->constrained('qualifications')->cascadeOnDelete();
+            $table->foreignId('country_id')->nullable()->constrained('countries')->cascadeOnDelete();
             $table->string('institution')->index();
-            $table->text('description');
-            $table->foreignUuid('qualification_id')->constrained('qualifications')->cascadeOnDelete();
+            $table->text('description')->nullable();
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
-            $table->foreignId('country_id')->nullable()->constrained('countries')->cascadeOnDelete();
             $table->timestamps();
 
         });

@@ -17,7 +17,7 @@ class CreateSpecializationsTable extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('cv_id')->constrained('cvs')->cascadeOnDelete();
             $table->string('name', 200)->index();
-            $table->text('description')->index()->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
         });
