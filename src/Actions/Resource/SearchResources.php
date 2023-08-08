@@ -71,6 +71,10 @@ class SearchResources
             }
             case "departments": {
                 $search = $this->searchParam;
+                $facultyId = request()->query('faculty_id');
+                if (isset($facultyId)) {
+                    $this->queryBuilder->where('faculty_id', $facultyId);
+                }
                 $this->queryBuilder->where(function($q) use ($search) {
                     $q->where("name", "like", "%$search%")
                         ->orWhereHas("faculty", function ($q2) use ($search) {
@@ -100,6 +104,10 @@ class SearchResources
             }
             case "cvs": {
                 $search = $this->searchParam;
+                $userId = request()->query('user_id');
+                if (isset($userId)) {
+                    $this->queryBuilder->where('user_id', $userId);
+                }
                 $this->queryBuilder->where(function($q) use ($search) {
                     $q->where("title", "like", "%$search%")
                         ->orWhereHas("user", function ($q2) use ($search) {
