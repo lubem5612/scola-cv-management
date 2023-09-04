@@ -34,8 +34,9 @@ class LoginAccount
     {
         $isAuth = auth()->guard('api')->attempt([$this->username => $this->validatedInput['email'], 'password' => $this->validatedInput['password']]);
         if ($isAuth) {
-            $token = auth()->guard('api')->user()->createToken(uniqid())->plainTextToken;
-            return $this->sendSuccess($token, 'login successful');
+            $user = auth()->guard('api')->user();
+            $user['token'] = auth()->guard('api')->user()->createToken(uniqid())->plainTextToken;
+            return $this->sendSuccess($user, 'login successful');
         }
         return $this->sendError('authentication failed', [], 401);
     }
