@@ -62,7 +62,7 @@ class GetResource
 
     private function validateRequest()
     {
-        abort_if(!array_key_exists($this->request['endpoint'], $this->routeConfig), 401, 'endpoint not found');
+        abort_if(!array_key_exists($this->request['endpoint'], $this->routeConfig), 401, 'missing endpoint');
         $this->route = $this->routeConfig[$this->request['endpoint']];
 
         $table = $this->route['table'];
