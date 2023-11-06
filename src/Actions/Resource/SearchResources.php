@@ -146,7 +146,7 @@ class SearchResources
                 $this->queryBuilder->where(function($q) use ($search) {
                     $q->where("institution", "like", "%$search%")
                         ->orWhereHas("qualification", function($q2) use ($search) {
-                            $q3->where("name", "like", "%$search%");
+                            $q2->where("name", "like", "%$search%");
                         })
                         ->orWhereHas("cv", function ($q3) use ($search) {
                             $q3->where("title", "like", "%$search%");
