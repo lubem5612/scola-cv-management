@@ -48,7 +48,7 @@ Route::as('cv.users.')->prefix('users')->group(function() {
     Route::delete('/{id}', [ UserController::class, 'destroy'])->name('delete');
 });
 
-Route::as('cv.')->group(function () {
+Route::as('cv.')->prefix('general')->group(function () {
     Route::get('{endpoint}', [ResourceController::class, 'index'])->name('index');
     Route::post('{endpoint}', [ResourceController::class, 'store'])->name('store');
     Route::get('{endpoint}/{id}', [ResourceController::class, 'show'])->name('show');
